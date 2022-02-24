@@ -86,6 +86,11 @@ const webDiplomacyTheme = createTheme({
         root: {
           borderRadius: 18,
           padding: "10px 18px",
+          // "&.Mui-disabled.pill-disabled": {
+          //   border: "none",
+          //   color: "#000",
+          //   textTransform: "uppercase",
+          // },
         },
         containedPrimary: {
           "&:active": {
@@ -113,6 +118,13 @@ const webDiplomacyTheme = createTheme({
           "&:hover": {
             backgroundColor: "#fafafa",
           },
+        },
+      },
+    },
+    MuiButtonGroup: {
+      styleOverrides: {
+        root: {
+          filter: "drop-shadow(1px 2px 4px black)",
         },
       },
     },
