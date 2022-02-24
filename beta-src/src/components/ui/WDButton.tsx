@@ -1,6 +1,5 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
-import WDCheckmarkIcon from "../svgr-components/WDCheckmarkIcon";
 
 interface WDButtonProps {
   children: React.ReactNode;
@@ -13,23 +12,23 @@ interface WDButtonProps {
     | "info"
     | "warning";
   disabled?: boolean;
-  checkMark?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
+  startIcon?: React.ReactNode | undefined;
 }
 
 const WDButton: React.FC<WDButtonProps> = function ({
   children,
   color,
   disabled,
-  checkMark,
   onClick,
+  startIcon,
 }): React.ReactElement {
   return (
     <Button
       color={color}
       disabled={disabled}
       onClick={onClick}
-      startIcon={checkMark && <WDCheckmarkIcon />}
+      startIcon={startIcon}
       variant="contained"
     >
       {children}
@@ -40,8 +39,8 @@ const WDButton: React.FC<WDButtonProps> = function ({
 WDButton.defaultProps = {
   color: "primary",
   disabled: false,
-  checkMark: false,
   onClick: undefined,
+  startIcon: undefined,
 };
 
 export default WDButton;
