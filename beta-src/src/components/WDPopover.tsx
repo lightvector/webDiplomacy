@@ -80,7 +80,7 @@ const WDPopover: React.FC<WDPopoverProps> = function ({
           sx={{
             background: "linear-gradient(to right, white 94%, transparent 6%)",
             m: 0,
-            p: "16px 25px 16px 16px",
+            p: "16px 25px 16px 10px",
           }}
         >
           {children}
