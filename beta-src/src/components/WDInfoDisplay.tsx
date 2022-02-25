@@ -57,6 +57,11 @@ const WDInfoDisplay: React.FC<WDInfoDisplayProps> = function ({
   /**
    *(optional) by defining classes object, we can apply styles to specific table element by adding className with classes's properties
    */
+  const tableCellStyles = {
+    p: "0px 5px 0px 5px",
+    fontSize: "0.7rem",
+    border: "none",
+  };
   return (
     <TableContainer>
       <Table
@@ -111,11 +116,7 @@ const WDInfoDisplay: React.FC<WDInfoDisplayProps> = function ({
               /**
                *(optional) to style repeated table component
                */
-              sx={{
-                p: "0px 5px 0px 5px",
-                fontSize: "0.7rem",
-                border: "none",
-              }}
+              sx={tableCellStyles}
             >
               Next phase in: {gameTime}, {phase},
             </TableCell>
@@ -123,11 +124,7 @@ const WDInfoDisplay: React.FC<WDInfoDisplayProps> = function ({
           <TableRow>
             <TableCell
               // className={classes.tableBodyCell}
-              sx={{
-                p: "0px 5px 0px 5px",
-                fontSize: "0.7rem",
-                border: "none",
-              }}
+              sx={tableCellStyles}
             >
               Pot: 35 - {season} {year}
             </TableCell>
@@ -135,11 +132,7 @@ const WDInfoDisplay: React.FC<WDInfoDisplayProps> = function ({
           <TableRow>
             <TableCell
               // className={classes.tableBodyCell}
-              sx={{
-                p: "0px 5px 0px 5px",
-                fontSize: "0.7rem",
-                border: "none",
-              }}
+              sx={tableCellStyles}
             >
               {gameType}, {playType}, {rank}
             </TableCell>
