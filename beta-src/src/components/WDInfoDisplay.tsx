@@ -57,11 +57,13 @@ const WDInfoDisplay: React.FC<WDInfoDisplayProps> = function ({
   /**
    *(optional) by defining classes object, we can apply styles to specific table element by adding className with classes's properties
    */
+
   const tableCellStyles = {
     p: "0px 5px 0px 5px",
     fontSize: "0.7rem",
     border: "none",
   };
+
   return (
     <TableContainer>
       <Table
