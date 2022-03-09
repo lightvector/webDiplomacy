@@ -1,23 +1,17 @@
-// http://localhost/api.php?route=game/overview&gameID=2
-
-import axios from "axios";
-import { Dispatch } from "redux";
-import { GAME } from "./types";
+type Member = {
+  country: string;
+  countryID: number;
+  id: number;
+  online: boolean;
+  userID: number;
+};
 
 export interface GameOverviewResponse {
   anon: string;
   drawType: string;
   excusedMissedTurns: number;
   gameOver: string;
-  members: [
-    {
-      country: string;
-      countryID: number;
-      id: number;
-      online: boolean;
-      userID: number;
-    },
-  ];
+  members: Member[];
   minimumBet: number;
   name: string;
   pauseTimeRemaining: number | null | undefined;
@@ -49,25 +43,3 @@ export interface GameOverviewResponse {
   };
   variantID: number;
 }
-
-export interface GameOverviewAction {
-  payload: GameOverviewResponse;
-  type: GAME.GET_GAME_OVERVIEW;
-}
-
-export const getGameOverview =
-  (gameID: string) => async (dispatch: Dispatch) => {
-    try {
-      const { data: payload } = await axios.get<GameOverviewResponse>(
-        `http://localhost/api.php?route=game/overview&gameID=${gameID}`,
-      );
-      dispatch<GameOverviewAction>({
-        payload,
-        type: GAME.GET_GAME_OVERVIEW,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-export default { getGameOverview };
