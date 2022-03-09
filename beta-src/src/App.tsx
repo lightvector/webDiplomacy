@@ -3,15 +3,15 @@ import "./assets/css/App.css";
 import Box from "@mui/material/Box";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
-import { getGameOverview } from "./state/action-creators";
+import gameActionCreators from "./state/action-creators/game";
 
 const App: React.FC = function (): React.ReactElement {
   const gameState = useSelector((state) => state);
   const dispatch = useDispatch();
-  const getOverview = bindActionCreators(getGameOverview, dispatch);
+  const { getGameOverview } = bindActionCreators(gameActionCreators, dispatch);
 
   React.useEffect(() => {
-    getOverview("2");
+    getGameOverview("2");
   }, []);
 
   return (

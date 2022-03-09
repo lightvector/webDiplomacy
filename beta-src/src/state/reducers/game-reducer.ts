@@ -1,13 +1,14 @@
-import { GameOverviewResponse } from "../../interfaces/GameOverviewResponse";
 import { GameAction } from "../action-types";
 import { GameActionType } from "../actions";
 
-const gameReducer = (state: GameOverviewResponse, action: GameActionType) => {
+const gameReducer = (state, action: GameActionType) => {
   switch (action.type) {
     case GameAction.GET_GAME_OVERVIEW:
-      return { gameOverview: { ...action.payload } };
+      return { ...state, overview: action.payload };
+    case GameAction.GET_GAME_STATUS:
+      return { ...state, status: action.payload };
     default:
-      return state;
+      return {};
   }
 };
 

@@ -3,9 +3,11 @@ import { Dispatch } from "redux";
 import { GameOverviewResponse } from "../../interfaces/GameOverviewResponse";
 import { GameActionType } from "../actions";
 import { GameAction } from "../action-types";
+import { GameStatusResponse } from "../../interfaces/GameStatusResponse";
 
 export const getGameOverview =
-  (gameID: string) => async (dispatch: Dispatch) => {
+  (gameID: string) =>
+  async (dispatch: Dispatch): Promise<void> => {
     try {
       const { data: payload } = await axios.get<GameOverviewResponse>(
         `http://localhost/api.php?route=game/overview&gameID=${gameID}`,
@@ -92,8 +94,43 @@ export const getGameOverview =
         },
         type: GameAction.GET_GAME_OVERVIEW,
       });
-      console.log(error);
     }
   };
 
-export default { getGameOverview };
+export const getGameStatus =
+  (gameID: string, countryID: string) =>
+  async (dispatch: Dispatch): Promise<void> => {
+    try {
+      const { data: payload } = await axios.get<GameStatusResponse>(
+        `http://localhost/api.php?route=game/overview&gameID=${gameID}&countryID=${countryID}`,
+      );
+      dispatch<GameActionType>({
+        payload,
+        type: GameAction.GET_GAME_STATUS,
+      });
+    } catch (error) {
+      dispatch<GameActionType>({
+        payload: {
+          gameID: 2,
+          countryID: 0,
+          variantID: 1,
+          potType: "Unranked",
+          turn: 0,
+          phase: "Pre-game",
+          gameOver: "No",
+          pressType: "NoPress",
+          phases: [],
+          standoffs: [],
+          occupiedFrom: [],
+          votes: null,
+          orderStatus: "None,Completed,Ready",
+          status: "Playing",
+        },
+        type: GameAction.GET_GAME_STATUS,
+      });
+    }
+  };
+
+const gameActionCreators = { getGameOverview, getGameStatus };
+
+export default gameActionCreators;

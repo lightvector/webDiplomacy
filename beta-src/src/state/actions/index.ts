@@ -1,9 +1,15 @@
 import { GameOverviewResponse } from "../../interfaces/GameOverviewResponse";
+import { GameStatusResponse } from "../../interfaces/GameStatusResponse";
 import { GameAction } from "../action-types";
 
 interface GameOverviewAction {
-  payload: GameOverviewResponse | null;
+  payload: GameOverviewResponse;
   type: GameAction.GET_GAME_OVERVIEW;
 }
 
-export type GameActionType = GameOverviewAction;
+interface GameStatusAction {
+  payload: GameStatusResponse;
+  type: GameAction.GET_GAME_STATUS;
+}
+
+export type GameActionType = GameOverviewAction | GameStatusAction;
