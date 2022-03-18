@@ -305,7 +305,6 @@ const WDBoardMap: React.FC = function (): React.ReactElement {
         <WDTerritory territoryMapData={PIEDMONT} />
         {/* <WDTerritory territoryMapData={PORTUGAL} /> */}
         <WDTerritory territoryMapData={PRUSSIA} />
-        <WDTerritory territoryMapData={ROME} />
         <WDTerritory territoryMapData={RUHR} />
         {/* <WDTerritory territoryMapData={RUMANIA} /> */}
         <WDTerritory territoryMapData={SAINT_PETERSBURG} />
@@ -316,12 +315,15 @@ const WDBoardMap: React.FC = function (): React.ReactElement {
         {/* <WDTerritory territoryMapData={SPAIN} /> */}
         <WDTerritory territoryMapData={SYRIA} />
         {/* <WDTerritory territoryMapData={TRIESTE} /> */}
-        <WDTerritory territoryMapData={TUSCANY} />
         <WDTerritory territoryMapData={UKRAINE} />
         <WDTerritory territoryMapData={VENICE} />
         <WDTerritory territoryMapData={WALES} />
         <WDTerritory territoryMapData={WARSAW} />
         <WDTerritory territoryMapData={YORK} />
+        {/* These need to be last so the labels and units will appear */}
+        <WDTerritory territoryMapData={NAPLES} />
+        <WDTerritory territoryMapData={ROME} />
+        <WDTerritory territoryMapData={TUSCANY} />
       </g>
       <defs>
         <pattern

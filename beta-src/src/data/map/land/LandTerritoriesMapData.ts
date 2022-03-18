@@ -592,8 +592,8 @@ export const NAPLES: TerritoryMapData = new TerritoryMapDataGenerator({
   unitSlots: [
     {
       name: "main",
-      x: 50,
-      y: 75,
+      x: 60,
+      y: 65,
     },
   ],
   width: 130,
@@ -832,20 +832,20 @@ export const PRUSSIA: TerritoryMapData = new TerritoryMapDataGenerator({
 export const ROME: TerritoryMapData = new TerritoryMapDataGenerator({
   ...new TerritoryDataGenerator(Territory.ROME).territory,
   centerPos: {
-    x: 17,
-    y: 17,
+    x: 10,
+    y: 23,
   },
   labels: [
     {
-      x: 67,
-      y: 90,
+      x: 48,
+      y: 37,
     },
   ],
   unitSlots: [
     {
       name: "main",
-      x: 13,
-      y: 51,
+      x: 36,
+      y: 45,
     },
   ],
   width: 118,
@@ -1168,15 +1168,15 @@ export const TUSCANY: TerritoryMapData = new TerritoryMapDataGenerator({
   ...new TerritoryDataGenerator(Territory.TUSCANY).territory,
   labels: [
     {
-      x: 35,
-      y: 95,
+      x: 28,
+      y: 80,
     },
   ],
   unitSlots: [
     {
       name: "main",
       x: 0,
-      y: 25,
+      y: 10,
     },
   ],
   width: 99,
