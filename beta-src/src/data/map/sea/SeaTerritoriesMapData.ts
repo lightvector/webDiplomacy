@@ -83,15 +83,15 @@ export const BARRENTS_SEA: TerritoryMapData = new TerritoryMapDataGenerator({
   ...new TerritoryDataGenerator(Territory.BARRENTS_SEA).territory,
   labels: [
     {
-      x: 241,
-      y: 120,
+      x: 270,
+      y: 320,
     },
   ],
   unitSlots: [
     {
       name: "main",
-      x: 230,
-      y: 45,
+      x: 305,
+      y: 95,
     },
   ],
   width: 608,
@@ -273,15 +273,15 @@ export const IONIAN_SEA: TerritoryMapData = new TerritoryMapDataGenerator({
   ...new TerritoryDataGenerator(Territory.IONIAN_SEA).territory,
   labels: [
     {
-      x: 241,
-      y: 120,
+      x: 310,
+      y: 200,
     },
   ],
   unitSlots: [
     {
       name: "main",
-      x: 230,
-      y: 45,
+      x: 300,
+      y: 220,
     },
   ],
   width: 556,
@@ -410,15 +410,15 @@ export const NORWEGIAN_SEA: TerritoryMapData = new TerritoryMapDataGenerator({
   ...new TerritoryDataGenerator(Territory.NORWEGIAN_SEA).territory,
   labels: [
     {
-      x: 241,
-      y: 120,
+      x: 500,
+      y: 230,
     },
   ],
   unitSlots: [
     {
       name: "main",
-      x: 230,
-      y: 45,
+      x: 494,
+      y: 240,
     },
   ],
   width: 932,
@@ -436,14 +436,14 @@ export const SKAGERRACK: TerritoryMapData = new TerritoryMapDataGenerator({
   labels: [
     {
       x: 43,
-      y: 65,
+      y: 60,
     },
   ],
   unitSlots: [
     {
       name: "main",
-      x: 230,
-      y: 45,
+      x: 83,
+      y: 111,
     },
   ],
   width: 144,
