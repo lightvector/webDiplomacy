@@ -608,7 +608,7 @@ export const NEUTRAL_2: TerritoryMapData = new TerritoryMapDataGenerator({
   height: 174,
   x: 2235,
   y: 1391,
-  fill: "#E5CFBE",
+  fill: "#594230",
   texture: {
     texture: Texture.LAND,
   },
@@ -620,8 +620,8 @@ export const NEUTRAL_3: TerritoryMapData = new TerritoryMapDataGenerator({
   width: 177,
   height: 100,
   x: 2671,
-  y: 1922,
-  fill: "#E5CFBE",
+  y: 1921,
+  fill: "#594230",
   texture: {
     texture: Texture.LAND,
   },
@@ -634,7 +634,7 @@ export const NEUTRAL_8: TerritoryMapData = new TerritoryMapDataGenerator({
   height: 36,
   x: 3344,
   y: 2576,
-  fill: "#E5CFBE",
+  fill: "#594230",
   texture: {
     texture: Texture.LAND,
   },
@@ -647,7 +647,7 @@ export const NEUTRAL_9: TerritoryMapData = new TerritoryMapDataGenerator({
   height: 58,
   x: 3723,
   y: 2535,
-  fill: "#E5CFBE",
+  fill: "#594230",
   texture: {
     texture: Texture.LAND,
   },
