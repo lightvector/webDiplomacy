@@ -21,8 +21,8 @@ export const ADRIATIC_SEA: TerritoryMapData = new TerritoryMapDataGenerator({
   ],
   width: 275,
   height: 305,
-  x: 2900,
-  y: 2046,
+  x: 2901,
+  y: 2047,
   texture: {
     texture: Texture.SEA,
   },
@@ -46,7 +46,7 @@ export const AEGEAN_SEA: TerritoryMapData = new TerritoryMapDataGenerator({
   ],
   width: 246,
   height: 290,
-  x: 3299,
+  x: 3298,
   y: 2303,
   texture: {
     texture: Texture.SEA,
@@ -96,7 +96,7 @@ export const BARRENTS_SEA: TerritoryMapData = new TerritoryMapDataGenerator({
   ],
   width: 608,
   height: 403,
-  x: 3266,
+  x: 3267,
   y: 646,
   texture: {
     texture: Texture.SEA,
@@ -133,7 +133,7 @@ export const CHANNEL_1: TerritoryMapData = new TerritoryMapDataGenerator({
   ...new TerritoryDataGenerator(Territory.CHANNEL_1).territory,
   width: 146,
   height: 112,
-  x: 3432,
+  x: 3431,
   y: 2250,
   texture: {
     texture: Texture.SEA,
@@ -184,8 +184,8 @@ export const ENGLISH_CHANNEL: TerritoryMapData = new TerritoryMapDataGenerator({
   ],
   width: 349,
   height: 123,
-  x: 2248,
-  y: 1674,
+  x: 2247,
+  y: 1675,
   texture: {
     texture: Texture.SEA,
   },
@@ -235,7 +235,7 @@ export const GULF_OF_LYONS: TerritoryMapData = new TerritoryMapDataGenerator({
   width: 457,
   height: 222,
   x: 2369,
-  y: 2097,
+  y: 2098,
   texture: {
     texture: Texture.SEA,
   },
@@ -261,7 +261,7 @@ export const HELIGOLAND_BIGHT: TerritoryMapData = new TerritoryMapDataGenerator(
     width: 118,
     height: 129,
     x: 2732,
-    y: 1482,
+    y: 1483,
     texture: {
       texture: Texture.SEA,
     },
@@ -312,7 +312,7 @@ export const IRISH_SEA: TerritoryMapData = new TerritoryMapDataGenerator({
   width: 330,
   height: 269,
   x: 2157,
-  y: 1460,
+  y: 1461,
   texture: {
     texture: Texture.SEA,
   },
@@ -337,7 +337,7 @@ export const MIDDLE_ATLANTIC: TerritoryMapData = new TerritoryMapDataGenerator({
   width: 605,
   height: 1027,
   x: 1827,
-  y: 1602,
+  y: 1603,
   texture: {
     texture: Texture.SEA,
   },
@@ -362,7 +362,7 @@ export const NORTH_ATLANTIC: TerritoryMapData = new TerritoryMapDataGenerator({
   width: 710,
   height: 1005,
   x: 1827,
-  y: 645,
+  y: 646,
   texture: {
     texture: Texture.SEA,
   },
@@ -374,7 +374,7 @@ export const NORTH_ATLANTIC2: TerritoryMapData = new TerritoryMapDataGenerator({
   width: 33,
   height: 44,
   x: 2341,
-  y: 715,
+  y: 716,
   texture: {
     texture: Texture.SEA,
   },
@@ -399,7 +399,7 @@ export const NORTH_SEA: TerritoryMapData = new TerritoryMapDataGenerator({
   width: 326,
   height: 537,
   x: 2525,
-  y: 1170,
+  y: 1171,
   texture: {
     texture: Texture.SEA,
   },
@@ -424,7 +424,7 @@ export const NORWEGIAN_SEA: TerritoryMapData = new TerritoryMapDataGenerator({
   width: 932,
   height: 629,
   x: 2341,
-  y: 645,
+  y: 646,
   texture: {
     texture: Texture.SEA,
   },
@@ -449,7 +449,7 @@ export const SKAGERRACK: TerritoryMapData = new TerritoryMapDataGenerator({
   width: 144,
   height: 171,
   x: 2837,
-  y: 1322,
+  y: 1324,
   texture: {
     texture: Texture.SEA,
   },
@@ -461,7 +461,7 @@ export const SKAGERRACK2: TerritoryMapData = new TerritoryMapDataGenerator({
   width: 101,
   height: 93,
   x: 2884,
-  y: 1485,
+  y: 1486,
   texture: {
     texture: Texture.SEA,
   },
@@ -485,8 +485,8 @@ export const TYRRHENIAN_SEA: TerritoryMapData = new TerritoryMapDataGenerator({
   ],
   width: 305,
   height: 334,
-  x: 2727,
-  y: 2168,
+  x: 2728,
+  y: 2169,
   texture: {
     texture: Texture.SEA,
   },
@@ -512,7 +512,7 @@ export const WESTERN_MEDITERRANEAN: TerritoryMapData =
     width: 635,
     height: 196,
     x: 2107,
-    y: 2288,
+    y: 2290,
     texture: {
       texture: Texture.SEA,
     },
