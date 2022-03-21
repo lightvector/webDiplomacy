@@ -170,12 +170,12 @@ export const BULGARIA: TerritoryMapData = new TerritoryMapDataGenerator({
   ...new TerritoryDataGenerator(Territory.BULGARIA).territory,
   centerPos: {
     x: 20,
-    y: 70,
+    y: 65,
   },
   labels: [
     {
-      x: 70,
-      y: 95,
+      x: 65,
+      y: 88,
     },
     {
       x: 180,
@@ -184,15 +184,25 @@ export const BULGARIA: TerritoryMapData = new TerritoryMapDataGenerator({
     },
     {
       x: 115,
-      y: 170,
+      y: 175,
       text: "SC",
     },
   ],
   unitSlots: [
     {
       name: "main",
-      x: 110,
-      y: 63,
+      x: 35,
+      y: 95,
+    },
+    {
+      name: "ec",
+      x: 160,
+      y: 42,
+    },
+    {
+      name: "sc",
+      x: 105,
+      y: 106,
     },
   ],
   width: 234,
