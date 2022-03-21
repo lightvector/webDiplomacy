@@ -122,6 +122,12 @@ export const FINLAND: Territory = {
   type: "land",
 };
 
+export const GALLANTS: Territory = {
+  name: "GALLANTS",
+  abbr: "GAL",
+  type: "land",
+};
+
 export const GASCONY: Territory = {
   name: "GASCONY",
   abbr: "GAS",
@@ -272,6 +278,12 @@ export const NEUTRAL_9: Territory = {
   type: "land",
 };
 
+export const NORTH_AFRICA: Territory = {
+  name: "NORTH_AFRICA",
+  abbr: "NAF",
+  type: "land",
+};
+
 export const NORTH_ATLANTIC: Territory = {
   name: "NORTH_ATLANTIC",
   abbr: "NAO",
@@ -404,6 +416,12 @@ export const TRIESTE: Territory = {
   type: "land",
 };
 
+export const TUNISIA: Territory = {
+  name: "TUNISIA",
+  abbr: "TUN",
+  type: "land",
+};
+
 export const TUSCANY: Territory = {
   name: "TUSCANY",
   abbr: "TUS",
@@ -473,6 +491,7 @@ const Territories: TerritoryData = {
   [TerritoryEnum.EDINBURGH]: EDINBURGH,
   [TerritoryEnum.ENGLISH_CHANNEL]: ENGLISH_CHANNEL,
   [TerritoryEnum.FINLAND]: FINLAND,
+  [TerritoryEnum.GALLANTS]: GALLANTS,
   [TerritoryEnum.GASCONY]: GASCONY,
   [TerritoryEnum.GREECE]: GREECE,
   [TerritoryEnum.GULF_OF_BOTHNIA]: GULF_OF_BOTHNIA,
@@ -498,6 +517,7 @@ const Territories: TerritoryData = {
   [TerritoryEnum.NEUTRAL_7]: NEUTRAL_7,
   [TerritoryEnum.NEUTRAL_8]: NEUTRAL_8,
   [TerritoryEnum.NEUTRAL_9]: NEUTRAL_9,
+  [TerritoryEnum.NORTH_AFRICA]: NORTH_AFRICA,
   [TerritoryEnum.NORTH_ATLANTIC]: NORTH_ATLANTIC,
   [TerritoryEnum.NORTH_ATLANTIC2]: NORTH_ATLANTIC2,
   [TerritoryEnum.NORTH_SEA]: NORTH_SEA,
@@ -520,6 +540,7 @@ const Territories: TerritoryData = {
   [TerritoryEnum.SPAIN]: SPAIN,
   [TerritoryEnum.SYRIA]: SYRIA,
   [TerritoryEnum.TRIESTE]: TRIESTE,
+  [TerritoryEnum.TUNISIA]: TUNISIA,
   [TerritoryEnum.TUSCANY]: TUSCANY,
   [TerritoryEnum.TYRRHENIAN_SEA]: TYRRHENIAN_SEA,
   [TerritoryEnum.UKRAINE]: UKRAINE,
