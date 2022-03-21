@@ -7,7 +7,9 @@ import {
   ARMENIA,
   BELGIUM,
   BERLIN,
+  BOHEMIA,
   BREST,
+  BUDAPEST,
   BULGARIA,
   BURGUNDY,
   CLYDE,
@@ -15,7 +17,7 @@ import {
   DENMARK,
   EDINBURGH,
   FINLAND,
-  GALLANTS,
+  GALACIA,
   GASCONY,
   GREECE,
   HOLLAND,
@@ -57,7 +59,9 @@ import {
   TRIESTE,
   TUNISIA,
   TUSCANY,
+  TYROLIA,
   UKRAINE,
+  VIENNA,
   VENICE,
   WALES,
   WARSAW,
@@ -283,7 +287,9 @@ const WDBoardMap: React.FC = function (): React.ReactElement {
         <WDTerritory territoryMapData={ARMENIA} />
         <WDTerritory territoryMapData={BELGIUM} />
         <WDTerritory territoryMapData={BERLIN} />
+        <WDTerritory territoryMapData={BOHEMIA} />
         <WDTerritory territoryMapData={BREST} />
+        <WDTerritory territoryMapData={BUDAPEST} />
         <WDTerritory territoryMapData={BULGARIA} />
         <WDTerritory territoryMapData={BURGUNDY} />
         <WDTerritory territoryMapData={CLYDE} />
@@ -291,7 +297,7 @@ const WDBoardMap: React.FC = function (): React.ReactElement {
         <WDTerritory territoryMapData={DENMARK} />
         <WDTerritory territoryMapData={EDINBURGH} />
         <WDTerritory territoryMapData={FINLAND} />
-        <WDTerritory territoryMapData={GALLANTS} />
+        <WDTerritory territoryMapData={GALACIA} />
         <WDTerritory territoryMapData={GASCONY} />
         <WDTerritory territoryMapData={GREECE} />
         <WDTerritory territoryMapData={HOLLAND} />
@@ -329,10 +335,12 @@ const WDBoardMap: React.FC = function (): React.ReactElement {
         <WDTerritory territoryMapData={SPAIN} />
         <WDTerritory territoryMapData={SWEDEN} />
         <WDTerritory territoryMapData={SYRIA} />
-        {/* <WDTerritory territoryMapData={TRIESTE} /> */}
+        <WDTerritory territoryMapData={TRIESTE} />
         <WDTerritory territoryMapData={TUNISIA} />
+        <WDTerritory territoryMapData={TYROLIA} />
         <WDTerritory territoryMapData={UKRAINE} />
         <WDTerritory territoryMapData={VENICE} />
+        <WDTerritory territoryMapData={VIENNA} />
         <WDTerritory territoryMapData={WALES} />
         <WDTerritory territoryMapData={WARSAW} />
         <WDTerritory territoryMapData={YORK} />

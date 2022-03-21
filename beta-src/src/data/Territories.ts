@@ -68,9 +68,21 @@ export const BLACK_SEA: Territory = {
   type: "water",
 };
 
+export const BOHEMIA: Territory = {
+  name: "BOHEMIA",
+  abbr: "BOH",
+  type: "land",
+};
+
 export const BREST: Territory = {
   name: "BREST",
   abbr: "BRE",
+  type: "land",
+};
+
+export const BUDAPEST: Territory = {
+  name: "BUDAPEST",
+  abbr: "BUD",
   type: "land",
 };
 
@@ -134,8 +146,8 @@ export const FINLAND: Territory = {
   type: "land",
 };
 
-export const GALLANTS: Territory = {
-  name: "GALLANTS",
+export const GALACIA: Territory = {
+  name: "GALACIA",
   abbr: "GAL",
   type: "land",
 };
@@ -458,6 +470,12 @@ export const TUSCANY: Territory = {
   type: "land",
 };
 
+export const TYROLIA: Territory = {
+  name: "TYROLIA",
+  abbr: "TYR",
+  type: "land",
+};
+
 export const TYRRHENIAN_SEA: Territory = {
   name: "TYRRHENIAN_SEA",
   abbr: "TYS",
@@ -467,6 +485,12 @@ export const TYRRHENIAN_SEA: Territory = {
 export const UKRAINE: Territory = {
   name: "UKRAINE",
   abbr: "UKR",
+  type: "land",
+};
+
+export const VIENNA: Territory = {
+  name: "VIENNA",
+  abbr: "VIE",
   type: "land",
 };
 
@@ -512,7 +536,9 @@ const Territories: TerritoryData = {
   [TerritoryEnum.BELGIUM]: BELGIUM,
   [TerritoryEnum.BERLIN]: BERLIN,
   [TerritoryEnum.BLACK_SEA]: BLACK_SEA,
+  [TerritoryEnum.BOHEMIA]: BOHEMIA,
   [TerritoryEnum.BREST]: BREST,
+  [TerritoryEnum.BUDAPEST]: BUDAPEST,
   [TerritoryEnum.BULGARIA]: BULGARIA,
   [TerritoryEnum.BURGUNDY]: BURGUNDY,
   [TerritoryEnum.CHANNEL_1]: CHANNEL_1,
@@ -523,7 +549,7 @@ const Territories: TerritoryData = {
   [TerritoryEnum.EDINBURGH]: EDINBURGH,
   [TerritoryEnum.ENGLISH_CHANNEL]: ENGLISH_CHANNEL,
   [TerritoryEnum.FINLAND]: FINLAND,
-  [TerritoryEnum.GALLANTS]: GALLANTS,
+  [TerritoryEnum.GALACIA]: GALACIA,
   [TerritoryEnum.GASCONY]: GASCONY,
   [TerritoryEnum.GREECE]: GREECE,
   [TerritoryEnum.GULF_OF_BOTHNIA]: GULF_OF_BOTHNIA,
@@ -577,8 +603,10 @@ const Territories: TerritoryData = {
   [TerritoryEnum.TRIESTE]: TRIESTE,
   [TerritoryEnum.TUNISIA]: TUNISIA,
   [TerritoryEnum.TUSCANY]: TUSCANY,
+  [TerritoryEnum.TYROLIA]: TYROLIA,
   [TerritoryEnum.TYRRHENIAN_SEA]: TYRRHENIAN_SEA,
   [TerritoryEnum.UKRAINE]: UKRAINE,
+  [TerritoryEnum.VIENNA]: VIENNA,
   [TerritoryEnum.VENICE]: VENICE,
   [TerritoryEnum.WALES]: WALES,
   [TerritoryEnum.WARSAW]: WARSAW,
