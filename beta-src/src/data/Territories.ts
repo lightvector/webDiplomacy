@@ -50,6 +50,12 @@ export const BARRENTS_SEA: Territory = {
   type: "water",
 };
 
+export const BELGIUM: Territory = {
+  name: "BELGIUM",
+  abbr: "BEL",
+  type: "land",
+};
+
 export const BERLIN: Territory = {
   name: "BERLIN",
   abbr: "BER",
@@ -95,6 +101,12 @@ export const CLYDE: Territory = {
 export const CONSTANTINOPLE: Territory = {
   name: "CONSTANTINOPLE",
   abbr: "CON",
+  type: "land",
+};
+
+export const DENMARK: Territory = {
+  name: "DENMARK",
+  abbr: "DEN",
   type: "land",
 };
 
@@ -156,6 +168,12 @@ export const HELIGOLAND_BIGHT: Territory = {
   name: "HELIGOLAND_BIGHT",
   abbr: "HEL",
   type: "water",
+};
+
+export const HOLLAND: Territory = {
+  name: "HOLLAND",
+  abbr: "HOL",
+  type: "land",
 };
 
 export const IONIAN_SEA: Territory = {
@@ -302,6 +320,12 @@ export const NORTH_SEA: Territory = {
   type: "water",
 };
 
+export const NORWAY: Territory = {
+  name: "NORWAY",
+  abbr: "NWY",
+  type: "land",
+};
+
 export const NORWEGIAN_SEA: Territory = {
   name: "NORWEGIAN_SEA",
   abbr: "NWG",
@@ -404,6 +428,12 @@ export const SPAIN: Territory = {
   type: "land",
 };
 
+export const SWEDEN: Territory = {
+  name: "SWEDEN",
+  abbr: "SWE",
+  type: "land",
+};
+
 export const SYRIA: Territory = {
   name: "SYRIA",
   abbr: "SYR",
@@ -479,6 +509,7 @@ const Territories: TerritoryData = {
   [TerritoryEnum.ARMENIA]: ARMENIA,
   [TerritoryEnum.BALTIC_SEA]: BALTIC_SEA,
   [TerritoryEnum.BARRENTS_SEA]: BARRENTS_SEA,
+  [TerritoryEnum.BELGIUM]: BELGIUM,
   [TerritoryEnum.BERLIN]: BERLIN,
   [TerritoryEnum.BLACK_SEA]: BLACK_SEA,
   [TerritoryEnum.BREST]: BREST,
@@ -487,6 +518,7 @@ const Territories: TerritoryData = {
   [TerritoryEnum.CHANNEL_1]: CHANNEL_1,
   [TerritoryEnum.CLYDE]: CLYDE,
   [TerritoryEnum.CONSTANTINOPLE]: CONSTANTINOPLE,
+  [TerritoryEnum.DENMARK]: DENMARK,
   [TerritoryEnum.EASTERN_MEDITERRANEAN]: EASTERN_MEDITERRANEAN,
   [TerritoryEnum.EDINBURGH]: EDINBURGH,
   [TerritoryEnum.ENGLISH_CHANNEL]: ENGLISH_CHANNEL,
@@ -497,6 +529,7 @@ const Territories: TerritoryData = {
   [TerritoryEnum.GULF_OF_BOTHNIA]: GULF_OF_BOTHNIA,
   [TerritoryEnum.GULF_OF_LYONS]: GULF_OF_LYONS,
   [TerritoryEnum.HELIGOLAND_BIGHT]: HELIGOLAND_BIGHT,
+  [TerritoryEnum.HOLLAND]: HOLLAND,
   [TerritoryEnum.IONIAN_SEA]: IONIAN_SEA,
   [TerritoryEnum.IRISH_SEA]: IRISH_SEA,
   [TerritoryEnum.KIEL]: KIEL,
@@ -521,6 +554,7 @@ const Territories: TerritoryData = {
   [TerritoryEnum.NORTH_ATLANTIC]: NORTH_ATLANTIC,
   [TerritoryEnum.NORTH_ATLANTIC2]: NORTH_ATLANTIC2,
   [TerritoryEnum.NORTH_SEA]: NORTH_SEA,
+  [TerritoryEnum.NORWAY]: NORWAY,
   [TerritoryEnum.NORWEGIAN_SEA]: NORWEGIAN_SEA,
   [TerritoryEnum.PARIS]: PARIS,
   [TerritoryEnum.PICARDY]: PICARDY,
@@ -538,6 +572,7 @@ const Territories: TerritoryData = {
   [TerritoryEnum.SKAGERRACK2]: SKAGERRACK2,
   [TerritoryEnum.SMYRNA]: SMYRNA,
   [TerritoryEnum.SPAIN]: SPAIN,
+  [TerritoryEnum.SWEDEN]: SWEDEN,
   [TerritoryEnum.SYRIA]: SYRIA,
   [TerritoryEnum.TRIESTE]: TRIESTE,
   [TerritoryEnum.TUNISIA]: TUNISIA,

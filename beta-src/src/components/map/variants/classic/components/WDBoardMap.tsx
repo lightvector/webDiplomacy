@@ -5,17 +5,20 @@ import {
   ANKARA,
   APULIA,
   ARMENIA,
+  BELGIUM,
   BERLIN,
   BREST,
   BULGARIA,
   BURGUNDY,
   CLYDE,
   CONSTANTINOPLE,
+  DENMARK,
   EDINBURGH,
   FINLAND,
   GALLANTS,
   GASCONY,
   GREECE,
+  HOLLAND,
   KIEL,
   LIVERPOOL,
   LIVONIA,
@@ -34,6 +37,7 @@ import {
   NEUTRAL_8,
   NEUTRAL_9,
   NORTH_AFRICA,
+  NORWAY,
   PARIS,
   PICARDY,
   PIEDMONT,
@@ -48,6 +52,7 @@ import {
   SILESIA,
   SMYRNA,
   SPAIN,
+  SWEDEN,
   SYRIA,
   TRIESTE,
   TUNISIA,
@@ -276,17 +281,20 @@ const WDBoardMap: React.FC = function (): React.ReactElement {
         <WDTerritory territoryMapData={ANKARA} />
         <WDTerritory territoryMapData={APULIA} />
         <WDTerritory territoryMapData={ARMENIA} />
+        <WDTerritory territoryMapData={BELGIUM} />
         <WDTerritory territoryMapData={BERLIN} />
         <WDTerritory territoryMapData={BREST} />
         <WDTerritory territoryMapData={BULGARIA} />
         <WDTerritory territoryMapData={BURGUNDY} />
         <WDTerritory territoryMapData={CLYDE} />
         <WDTerritory territoryMapData={CONSTANTINOPLE} />
+        <WDTerritory territoryMapData={DENMARK} />
         <WDTerritory territoryMapData={EDINBURGH} />
         <WDTerritory territoryMapData={FINLAND} />
         <WDTerritory territoryMapData={GALLANTS} />
         <WDTerritory territoryMapData={GASCONY} />
         <WDTerritory territoryMapData={GREECE} />
+        <WDTerritory territoryMapData={HOLLAND} />
         <WDTerritory territoryMapData={KIEL} />
         <WDTerritory territoryMapData={LIVERPOOL} />
         <WDTerritory territoryMapData={LIVONIA} />
@@ -305,6 +313,7 @@ const WDBoardMap: React.FC = function (): React.ReactElement {
         <WDTerritory territoryMapData={NEUTRAL_8} />
         <WDTerritory territoryMapData={NEUTRAL_9} />
         <WDTerritory territoryMapData={NORTH_AFRICA} />
+        <WDTerritory territoryMapData={NORWAY} />
         <WDTerritory territoryMapData={PARIS} />
         <WDTerritory territoryMapData={PICARDY} />
         <WDTerritory territoryMapData={PIEDMONT} />
@@ -318,6 +327,7 @@ const WDBoardMap: React.FC = function (): React.ReactElement {
         <WDTerritory territoryMapData={SILESIA} />
         <WDTerritory territoryMapData={SMYRNA} />
         <WDTerritory territoryMapData={SPAIN} />
+        <WDTerritory territoryMapData={SWEDEN} />
         <WDTerritory territoryMapData={SYRIA} />
         {/* <WDTerritory territoryMapData={TRIESTE} /> */}
         <WDTerritory territoryMapData={TUNISIA} />
