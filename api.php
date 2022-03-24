@@ -537,6 +537,7 @@ class GetGameOverview extends ApiEntry {
 		$payload = array_merge([
 			'alternatives' => strip_tags(implode(', ',$game->getAlternatives())),
 			'anon' => $game->anon,
+			'date' => $game->datetxt($game->turn),
 			'drawType' => $game->drawType,
 			'season' => $season,
 			'year' => $year,
