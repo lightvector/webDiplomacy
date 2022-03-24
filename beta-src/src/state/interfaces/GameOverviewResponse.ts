@@ -12,7 +12,6 @@ export type Member = {
 interface GameOverviewResponse {
   alternatives: string;
   anon: string;
-  date: string;
   drawType: string;
   excusedMissedTurns: IntegerRange<0, 5>;
   gameOver: string;
