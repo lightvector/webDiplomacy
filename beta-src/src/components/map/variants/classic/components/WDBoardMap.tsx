@@ -108,9 +108,7 @@ import {
   UNPLAYABLE_SEA9,
   WESTERN_MEDITERRANEAN,
 } from "../../../../../data/map/sea/SeaTerritoriesMapData";
-
-import CapturableLandTexture from "../../../../../assets/textures/capturable-land.jpeg";
-import WaterTexture from "../../../../../assets/textures/sea-texture.png";
+import WDTexture from "./WDTexture";
 
 const WDBoardMap: React.FC = function (): React.ReactElement {
   return (
@@ -374,6 +372,7 @@ const WDBoardMap: React.FC = function (): React.ReactElement {
         <WDTerritory territoryMapData={PIEDMONT} />
         <WDTerritory territoryMapData={ROME} />
         <WDTerritory territoryMapData={TUSCANY} />
+        <WDTerritory territoryMapData={PIEDMONT} />
       </g>
       <g id="unplayable">
         <WDTerritory territoryMapData={UNPLAYABLE_LAND1} />
@@ -394,30 +393,7 @@ const WDBoardMap: React.FC = function (): React.ReactElement {
         <WDTerritory territoryMapData={UNPLAYABLE_SEA8} />
         <WDTerritory territoryMapData={UNPLAYABLE_SEA9} />
       </g>
-      <defs>
-        <pattern
-          id="capturable-land"
-          patternUnits="userSpaceOnUse"
-          width="1546"
-          height="1384"
-        >
-          <image
-            href={CapturableLandTexture}
-            x="0"
-            y="0"
-            width="1546"
-            height="1384"
-          />
-        </pattern>
-        <pattern
-          id="sea-texture"
-          patternUnits="userSpaceOnUse"
-          width="1546"
-          height="1384"
-        >
-          <image href={WaterTexture} x="0" y="0" width="1966" height="1615" />
-        </pattern>
-      </defs>
+      <WDTexture />
     </g>
   );
 };
