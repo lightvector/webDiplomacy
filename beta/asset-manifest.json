@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/beta/static/css/main.3dc5f5cf.chunk.css",
+    "main.css": "/beta/static/css/main.91570646.chunk.css",
     "main.js": "/beta/static/js/main.e8348bc7.chunk.js",
     "main.js.map": "/beta/static/js/main.e8348bc7.chunk.js.map",
     "runtime-main.js": "/beta/static/js/runtime-main.5f51aef2.js",
@@ -12,7 +12,7 @@
     "static/js/4.8e00b595.chunk.js": "/beta/static/js/4.8e00b595.chunk.js",
     "static/js/4.8e00b595.chunk.js.map": "/beta/static/js/4.8e00b595.chunk.js.map",
     "index.html": "/beta/index.html",
-    "static/css/main.3dc5f5cf.chunk.css.map": "/beta/static/css/main.3dc5f5cf.chunk.css.map",
+    "static/css/main.91570646.chunk.css.map": "/beta/static/css/main.91570646.chunk.css.map",
     "static/js/2.641db0a5.chunk.js.LICENSE.txt": "/beta/static/js/2.641db0a5.chunk.js.LICENSE.txt",
     "static/media/capturable-land.379f9cca.jpeg": "/beta/static/media/capturable-land.379f9cca.jpeg",
     "static/media/sea-texture.fd82ad46.png": "/beta/static/media/sea-texture.fd82ad46.png"
@@ -20,7 +20,7 @@
   "entrypoints": [
     "static/js/runtime-main.5f51aef2.js",
     "static/js/2.641db0a5.chunk.js",
-    "static/css/main.3dc5f5cf.chunk.css",
+    "static/css/main.91570646.chunk.css",
     "static/js/main.e8348bc7.chunk.js"
   ]
 }
