@@ -6,6 +6,7 @@ const initialState: GameState = {
   overview: {
     alternatives: "",
     anon: "Yes",
+    date: "Spring, 1901",
     drawType: "draw-votes-public",
     excusedMissedTurns: 4,
     gameOver: "No",

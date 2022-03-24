@@ -5,6 +5,8 @@ import WDMain from "./components/ui/WDMain";
 import { useAppDispatch } from "./state/hooks";
 import { fetchGameOverview } from "./state/game/game-api-slice";
 
+import WDPhaseUI from "./components/ui/WDPhaseUI";
+
 const App: React.FC = function (): React.ReactElement {
   const urlParams = new URLSearchParams(window.location.search);
   const currentGameID = urlParams.get("gameID");
@@ -12,7 +14,8 @@ const App: React.FC = function (): React.ReactElement {
   dispatch(fetchGameOverview({ gameID: currentGameID as string }));
   return (
     <Box className="App">
-      <WDMain />
+      {/* <WDMain /> */}
+      <WDPhaseUI />
     </Box>
   );
 };
