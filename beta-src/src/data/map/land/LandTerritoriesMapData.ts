@@ -994,15 +994,15 @@ export const PIEDMONT: TerritoryMapData = new TerritoryMapDataGenerator({
   ...new TerritoryDataGenerator(Territory.PIEDMONT).territory,
   labels: [
     {
-      x: 62,
-      y: 39,
+      x: 38,
+      y: 60,
     },
   ],
   unitSlots: [
     {
       name: "main",
-      x: 5,
-      y: 16,
+      x: 67,
+      y: 28,
     },
   ],
   width: 142,
