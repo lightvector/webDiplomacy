@@ -372,7 +372,6 @@ const WDBoardMap: React.FC = function (): React.ReactElement {
         <WDTerritory territoryMapData={PIEDMONT} />
         <WDTerritory territoryMapData={ROME} />
         <WDTerritory territoryMapData={TUSCANY} />
-        <WDTerritory territoryMapData={PIEDMONT} />
       </g>
       <g id="unplayable">
         <WDTerritory territoryMapData={UNPLAYABLE_LAND1} />
