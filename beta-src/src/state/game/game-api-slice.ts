@@ -20,6 +20,7 @@ import countryMap from "../../data/map/variants/classic/CountryMap";
 import OrderState from "../interfaces/OrderState";
 import UpdateOrder from "../../interfaces/state/UpdateOrder";
 import TerritoriesMeta, { TerritoryMeta } from "../interfaces/TerritoriesState";
+import { context } from "../../models/testData";
 
 export const fetchGameData = createAsyncThunk(
   ApiRoute.GAME_DATA,
@@ -227,6 +228,16 @@ const gameApiSlice = createSlice({
       } = clickData;
       if (order.inProgress) {
         const currOrderUnitID = order.unitID;
+        let contextVariables;
+        let parsedContext;
+        let gamePhase;
+        if ("contextVars" in gameData) {
+          const { contextVars } = gameData;
+          contextVariables = contextVars;
+          parsedContext = JSON.parse(contextVariables.context);
+          const { phase } = parsedContext;
+          gamePhase = phase;
+        }
         if (
           order.onTerritory !== null &&
           Territory[order.onTerritory] === territoryName &&
@@ -235,6 +246,13 @@ const gameApiSlice = createSlice({
           let command: GameCommand = {
             command: "HOLD",
           };
+
+          if (gamePhase === "Retreats") {
+            command = {
+              command: "DISBAND",
+            };
+          }
+          console.log(command);
           setCommand(state, command, "territoryCommands", territoryName);
           setCommand(state, command, "unitCommands", currOrderUnitID);
           command = {

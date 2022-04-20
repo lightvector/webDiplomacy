@@ -12,7 +12,6 @@ export default function getValidUnitBorderCrossings(data): Props {
     data;
 
   if ("contextVars" in data && contextVars.context) {
-    console.log({ contextVars });
     const newBoard = new BoardClass(
       JSON.parse(contextVars.context),
       Object.values(territories),

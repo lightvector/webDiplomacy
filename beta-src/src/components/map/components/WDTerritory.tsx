@@ -82,6 +82,9 @@ const WDTerritory: React.FC<WDTerritoryProps> = function ({
       setTerritoryStrokeOpacity(1);
       deleteCommand(key);
     },
+    DISBAND: (command) => {
+      console.log(command);
+    },
   };
 
   processNextCommand(commands, commandActions);

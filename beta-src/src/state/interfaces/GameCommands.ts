@@ -18,6 +18,7 @@ export const ValidCommands = [
   "CAPTURED",
   "DRAW_ARROW",
   "HOLD",
+  "DISBAND",
   "INVALID_CLICK",
   "MOVE",
   "REMOVE_ARROW",

@@ -50,6 +50,18 @@ const WDUnitController: React.FC<UnitControllerProps> = function ({
         }),
       );
     },
+    DISBAND: (command) => {
+      const [key] = command;
+      console.log("key", key);
+      setIconState(UIState.DISBANDED);
+      dispatch(
+        gameApiSliceActions.deleteCommand({
+          type: "unitCommands",
+          id: meta.unit.id,
+          command: key,
+        }),
+      );
+    },
   };
 
   processNextCommand(commands, commandActions);
