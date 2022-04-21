@@ -30,6 +30,24 @@ const WDUnitController: React.FC<UnitControllerProps> = function ({
 
   const order = useAppSelector(gameOrder);
 
+  const { contextVars } = data;
+
+  let context;
+
+  if (contextVars) {
+    context = JSON.parse(contextVars?.context);
+  }
+
+  // const deleteCommand = (key) => {
+  //   dispatch(
+  //     gameApiSliceActions.deleteCommand({
+  //       type: "territoryCommands",
+  //       id: territoryMapData.name,
+  //       command: key,
+  //     }),
+  //   );
+  // };
+
   if (!order.type) {
     if (order.unitID === meta.unit.id) {
       setIconState(UIState.SELECTED);
@@ -50,17 +68,36 @@ const WDUnitController: React.FC<UnitControllerProps> = function ({
         }),
       );
     },
+    DISBAND: (command) => {
+      const [key] = command;
+      setIconState(UIState.DISBANDED);
+      dispatch(
+        gameApiSliceActions.deleteCommand({
+          type: "unitCommands",
+          id: meta.unit.id,
+          command: key,
+        }),
+      );
+    },
   };
 
   processNextCommand(commands, commandActions);
 
   let unitCanInitiateOrder = false;
+
   if ("currentOrders" in data) {
     const { currentOrders } = data;
     if (currentOrders) {
       for (let i = 0; i < currentOrders.length; i += 1) {
         if (currentOrders[i].unitID === meta.unit.id) {
           unitCanInitiateOrder = true;
+          if (
+            context &&
+            context.orderStatus === "Saved,Completed" &&
+            currentOrders[i].type === "Disband"
+          ) {
+            setIconState(UIState.DISBANDED);
+          }
           break;
         }
       }

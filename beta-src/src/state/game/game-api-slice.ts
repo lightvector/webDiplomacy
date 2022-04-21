@@ -271,6 +271,7 @@ const gameApiSlice = createSlice({
     processUnitClick(state, clickData) {
       const { order } = current(state);
       const { inProgress } = order;
+      console.log("unit", clickData);
       if (inProgress) {
         if (order.type === "hold" && order.onTerritory !== null) {
           highlightMapTerritoriesBasedOnStatuses(state);
@@ -307,11 +308,13 @@ const gameApiSlice = createSlice({
         if (
           order.onTerritory !== null &&
           Territory[order.onTerritory] === territoryName &&
-          !order.type
+          !order.type &&
+          phase !== "Retreats"
         ) {
           let command: GameCommand = {
             command: "HOLD",
           };
+
           setCommand(state, command, "territoryCommands", territoryName);
           setCommand(state, command, "unitCommands", currOrderUnitID);
           command = {
@@ -331,6 +334,43 @@ const gameApiSlice = createSlice({
                   saved: false,
                   update: {
                     type: "Hold",
+                    toTerrID: null,
+                  },
+                },
+              });
+            }
+          }
+          state.order.type = "hold";
+        } else if (
+          order.onTerritory !== null &&
+          Territory[order.onTerritory] === territoryName &&
+          !order.type &&
+          phase === "Retreats"
+        ) {
+          let command: GameCommand = {
+            command: "DISBAND",
+          };
+
+          setCommand(state, command, "territoryCommands", territoryName);
+          setCommand(state, command, "unitCommands", currOrderUnitID);
+          command = {
+            command: "REMOVE_ARROW",
+            data: {
+              orderID: order.orderID,
+            },
+          };
+          setCommand(state, command, "mapCommands", "all");
+          if (currentOrders) {
+            const orderToUpdate = currentOrders.find((o) => {
+              return o.unitID === currOrderUnitID;
+            });
+            console.log(orderToUpdate);
+            if (orderToUpdate) {
+              updateOrdersMeta(state, {
+                [orderToUpdate.id]: {
+                  saved: false,
+                  update: {
+                    type: "Disband",
                     toTerrID: null,
                   },
                 },
