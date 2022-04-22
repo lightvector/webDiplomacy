@@ -32,34 +32,33 @@ const WDUnitController: React.FC<UnitControllerProps> = function ({
 
   const order = useAppSelector(gameOrder);
 
-  const orderMeta = useAppSelector(gameOrdersMeta);
-
-  const { contextVars } = data;
-
-  let context;
-
-  if (contextVars) {
-    context = JSON.parse(contextVars?.context);
-  }
-
-  // const deleteCommand = (key) => {
-  //   dispatch(
-  //     gameApiSliceActions.deleteCommand({
-  //       type: "territoryCommands",
-  //       id: territoryMapData.name,
-  //       command: key,
-  //     }),
-  //   );
-  // };
+  const ordersMeta = useAppSelector(gameOrdersMeta);
 
   if (!order.type) {
     if (order.unitID === meta.unit.id) {
       setIconState(UIState.SELECTED);
-    } else if (
-      order.unitID !== meta.unit.id &&
-      orderMeta[meta.unit.id] &&
-      !orderMeta[meta.unit.id].saved
-    ) {
+    } else if ("currentOrders" in data) {
+      const { currentOrders } = data;
+      let context;
+      if (data.contextVars?.context) {
+        context = JSON.parse(data.contextVars.context);
+      }
+      if (currentOrders) {
+        for (let i = 0; i < currentOrders.length; i += 1) {
+          if (
+            (currentOrders[i].unitID === meta.unit.id &&
+              ordersMeta[currentOrders[i].id] &&
+              ordersMeta[currentOrders[i].id].update?.type === "Disbanded") ||
+            (currentOrders[i].unitID === meta.unit.id &&
+              currentOrders[i].status === "Loading" &&
+              currentOrders[i].type === "Disband")
+          ) {
+            setIconState(UIState.DISBANDED);
+            break;
+          }
+        }
+      }
+    } else {
       setIconState(UIState.NONE);
     }
   }
@@ -79,6 +78,7 @@ const WDUnitController: React.FC<UnitControllerProps> = function ({
     DISBAND: (command) => {
       const [key] = command;
       setIconState(UIState.DISBANDED);
+      console.log("comannded");
       dispatch(
         gameApiSliceActions.deleteCommand({
           type: "unitCommands",
@@ -99,20 +99,6 @@ const WDUnitController: React.FC<UnitControllerProps> = function ({
       for (let i = 0; i < currentOrders.length; i += 1) {
         if (currentOrders[i].unitID === meta.unit.id) {
           unitCanInitiateOrder = true;
-          if (
-            (context &&
-              context.orderStatus === "Saved,Completed" &&
-              currentOrders[i].type === "Disband") ||
-            (currentOrders[i].type === "Disband" &&
-              !order.inProgress &&
-              currentOrders[i].status === "Loading") ||
-            (orderMeta &&
-              currentOrders[i].type === "Disband" &&
-              orderMeta[meta.unit.id] &&
-              orderMeta[meta.unit.id].saved)
-          ) {
-            setIconState(UIState.DISBANDED);
-          }
           break;
         }
       }

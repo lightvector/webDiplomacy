@@ -566,6 +566,7 @@ const gameApiSlice = createSlice({
     drawBuilds,
     dispatchCommand(state, action: DispatchCommandAction) {
       const { command, container, identifier } = action.payload;
+      console.log("command dispatched");
       setCommand(state, command, container, identifier);
     },
   },
