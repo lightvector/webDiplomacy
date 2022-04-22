@@ -7,8 +7,10 @@ import {
   gameApiSliceActions,
   gameData,
   gameOrder,
+  gameOrdersMeta,
 } from "../../state/game/game-api-slice";
 import processNextCommand from "../../utils/processNextCommand";
+import { ordersData } from "../../models/testData";
 
 interface UnitControllerProps {
   meta: GameIconProps["meta"];
@@ -29,6 +31,8 @@ const WDUnitController: React.FC<UnitControllerProps> = function ({
   const { data } = useAppSelector(gameData);
 
   const order = useAppSelector(gameOrder);
+
+  const orderMeta = useAppSelector(gameOrdersMeta);
 
   const { contextVars } = data;
 
@@ -51,7 +55,11 @@ const WDUnitController: React.FC<UnitControllerProps> = function ({
   if (!order.type) {
     if (order.unitID === meta.unit.id) {
       setIconState(UIState.SELECTED);
-    } else {
+    } else if (
+      order.unitID !== meta.unit.id &&
+      orderMeta[meta.unit.id] &&
+      !orderMeta[meta.unit.id].saved
+    ) {
       setIconState(UIState.NONE);
     }
   }
@@ -92,9 +100,16 @@ const WDUnitController: React.FC<UnitControllerProps> = function ({
         if (currentOrders[i].unitID === meta.unit.id) {
           unitCanInitiateOrder = true;
           if (
-            context &&
-            context.orderStatus === "Saved,Completed" &&
-            currentOrders[i].type === "Disband"
+            (context &&
+              context.orderStatus === "Saved,Completed" &&
+              currentOrders[i].type === "Disband") ||
+            (currentOrders[i].type === "Disband" &&
+              !order.inProgress &&
+              currentOrders[i].status === "Loading") ||
+            (orderMeta &&
+              currentOrders[i].type === "Disband" &&
+              orderMeta[meta.unit.id] &&
+              orderMeta[meta.unit.id].saved)
           ) {
             setIconState(UIState.DISBANDED);
           }

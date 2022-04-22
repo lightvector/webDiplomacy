@@ -364,7 +364,7 @@ const gameApiSlice = createSlice({
             const orderToUpdate = currentOrders.find((o) => {
               return o.unitID === currOrderUnitID;
             });
-            console.log(orderToUpdate);
+            console.log("otu", orderToUpdate);
             if (orderToUpdate) {
               updateOrdersMeta(state, {
                 [orderToUpdate.id]: {
