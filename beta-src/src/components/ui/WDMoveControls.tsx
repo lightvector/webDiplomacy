@@ -21,11 +21,13 @@ import UpdateOrder from "../../interfaces/state/UpdateOrder";
 
 interface WDMoveControlsProps {
   gameState: MoveStatus;
+  readyDisabled: boolean;
   toggleState: (move: Move) => void;
 }
 
 const WDMoveControls: React.FC<WDMoveControlsProps> = function ({
   gameState: { ready, save },
+  readyDisabled,
   toggleState,
 }): React.ReactElement {
   const theme = useTheme();
@@ -87,12 +89,18 @@ const WDMoveControls: React.FC<WDMoveControlsProps> = function ({
         );
         const orderSubmission = {
           orderUpdates,
-          context: contextVars.context,
+          context: JSON.stringify(contextVars.context),
           contextKey: contextVars.contextKey,
+          queryParams: {},
         };
         console.log("yo4");
         console.log("du", disbandedUnits);
 
+        if (type === Move.READY) {
+          orderSubmission.queryParams = ready
+            ? { notready: "on" }
+            : { ready: "on" };
+        }
         dispatch(saveOrders(orderSubmission));
       }
     }
@@ -138,7 +146,6 @@ const WDMoveControls: React.FC<WDMoveControlsProps> = function ({
   }
 
   const saveDisabled = ready || !save;
-  const readyDisabled = false;
 
   return (
     <Stack

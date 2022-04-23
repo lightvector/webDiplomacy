@@ -3,12 +3,7 @@ import { GameIconProps } from "../../interfaces/Icons";
 import UIState from "../../enums/UIState";
 import debounce from "../../utils/debounce";
 import { useAppDispatch, useAppSelector } from "../../state/hooks";
-import {
-  gameApiSliceActions,
-  gameData,
-  gameOrder,
-  gameOrdersMeta,
-} from "../../state/game/game-api-slice";
+import { gameApiSliceActions, gameData } from "../../state/game/game-api-slice";
 import processNextCommand from "../../utils/processNextCommand";
 import { ordersData } from "../../models/testData";
 
@@ -30,47 +25,15 @@ const WDUnitController: React.FC<UnitControllerProps> = function ({
 
   const { data } = useAppSelector(gameData);
 
-  const order = useAppSelector(gameOrder);
-
-  const ordersMeta = useAppSelector(gameOrdersMeta);
-
-  const { territoryStatuses } = data;
-
-  if (!order.type) {
-    if (order.unitID === meta.unit.id) {
-      setIconState(UIState.SELECTED);
-    } else if ("currentOrders" in data) {
-      const { currentOrders } = data;
-      let context;
-      if (data.contextVars?.context) {
-        context = JSON.parse(data.contextVars.context);
-      }
-      if (currentOrders) {
-        for (let i = 0; i < currentOrders.length; i += 1) {
-          if (
-            (currentOrders[i].unitID === meta.unit.id &&
-              ordersMeta[currentOrders[i].id] &&
-              ordersMeta[currentOrders[i].id].update?.type === "Disbanded") ||
-            (currentOrders[i].unitID === meta.unit.id &&
-              currentOrders[i].status === "Loading" &&
-              currentOrders[i].type === "Disband")
-          ) {
-            setIconState(UIState.DISBANDED);
-            break;
-          } else if (
-            ordersMeta[currentOrders[i].id] &&
-            context.phase === "Retreats" &&
-            currentOrders[i].type !== "Disband"
-          ) {
-            setIconState(UIState.DISLODGED);
-            break;
-          }
-        }
-      }
-    } else {
-      setIconState(UIState.NONE);
-    }
-  }
+  const deleteCommand = (key) => {
+    dispatch(
+      gameApiSliceActions.deleteCommand({
+        type: "unitCommands",
+        id: meta.unit.id,
+        command: key,
+      }),
+    );
+  };
 
   // else if (territoryStatuses) {
   //   const terrsRetreating = territoryStatuses.filter((terr) => {
@@ -87,13 +50,17 @@ const WDUnitController: React.FC<UnitControllerProps> = function ({
     HOLD: (command) => {
       const [key] = command;
       setIconState(UIState.HOLD);
-      dispatch(
-        gameApiSliceActions.deleteCommand({
-          type: "unitCommands",
-          id: meta.unit.id,
-          command: key,
-        }),
-      );
+      deleteCommand(key);
+    },
+    NONE: (command) => {
+      const [key] = command;
+      setIconState(UIState.NONE);
+      deleteCommand(key);
+    },
+    SELECTED: (command) => {
+      const [key] = command;
+      setIconState(UIState.SELECTED);
+      deleteCommand(key);
     },
     DISBAND: (command) => {
       const [key] = command;
