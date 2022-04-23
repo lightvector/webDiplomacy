@@ -34,6 +34,8 @@ const WDUnitController: React.FC<UnitControllerProps> = function ({
 
   const ordersMeta = useAppSelector(gameOrdersMeta);
 
+  const { territoryStatuses } = data;
+
   if (!order.type) {
     if (order.unitID === meta.unit.id) {
       setIconState(UIState.SELECTED);
@@ -55,6 +57,13 @@ const WDUnitController: React.FC<UnitControllerProps> = function ({
           ) {
             setIconState(UIState.DISBANDED);
             break;
+          } else if (
+            ordersMeta[currentOrders[i].id] &&
+            context.phase === "Retreats" &&
+            currentOrders[i].type !== "Disband"
+          ) {
+            setIconState(UIState.DISLODGED);
+            break;
           }
         }
       }
@@ -62,6 +71,17 @@ const WDUnitController: React.FC<UnitControllerProps> = function ({
       setIconState(UIState.NONE);
     }
   }
+
+  // else if (territoryStatuses) {
+  //   const terrsRetreating = territoryStatuses.filter((terr) => {
+  //     return terr.occupiedFromTerrID;
+  //   });
+  //   if (terrsRetreating.length > 0) {
+  //     terrsRetreating.forEach(terr => {
+
+  //     })
+  //   }
+  // }
 
   const commandActions = {
     HOLD: (command) => {

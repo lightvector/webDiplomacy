@@ -101,23 +101,23 @@ const WDMoveControls: React.FC<WDMoveControlsProps> = function ({
     if (type === Move.READY) {
       toggleState(type);
     }
-    if (disbandedUnits.length > 0) {
-      console.log("yo2");
-      const command: GameCommand = {
-        command: "DISBAND",
-      };
+    // if (disbandedUnits.length > 0) {
+    //   console.log("yo2");
+    //   const command: GameCommand = {
+    //     command: "DISBAND",
+    //   };
 
-      disbandedUnits.forEach(([id, unitId]) => {
-        console.log("iddd", id);
-        dispatch(
-          gameApiSliceActions.dispatchCommand({
-            command,
-            container: "unitCommands",
-            identifier: unitId,
-          }),
-        );
-      });
-    }
+    //   disbandedUnits.forEach(([id, unitId]) => {
+    //     console.log("iddd", id);
+    //     dispatch(
+    //       gameApiSliceActions.dispatchCommand({
+    //         command,
+    //         container: "unitCommands",
+    //         identifier: unitId,
+    //       }),
+    //     );
+    //   });
+    // }
   };
 
   const ordersMetaValues = Object.values(ordersMeta);

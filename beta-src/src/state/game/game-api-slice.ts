@@ -266,6 +266,7 @@ const gameApiSlice = createSlice({
       drawBuilds(state);
     },
     updateTerritoriesMeta(state, action) {
+      console.log(action.payload);
       state.territoriesMeta = action.payload;
     },
     processUnitClick(state, clickData) {
