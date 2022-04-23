@@ -5,7 +5,6 @@ import debounce from "../../utils/debounce";
 import { useAppDispatch, useAppSelector } from "../../state/hooks";
 import { gameApiSliceActions, gameData } from "../../state/game/game-api-slice";
 import processNextCommand from "../../utils/processNextCommand";
-import { ordersData } from "../../models/testData";
 
 interface UnitControllerProps {
   meta: GameIconProps["meta"];
@@ -35,17 +34,6 @@ const WDUnitController: React.FC<UnitControllerProps> = function ({
     );
   };
 
-  // else if (territoryStatuses) {
-  //   const terrsRetreating = territoryStatuses.filter((terr) => {
-  //     return terr.occupiedFromTerrID;
-  //   });
-  //   if (terrsRetreating.length > 0) {
-  //     terrsRetreating.forEach(terr => {
-
-  //     })
-  //   }
-  // }
-
   const commandActions = {
     HOLD: (command) => {
       const [key] = command;
@@ -65,7 +53,6 @@ const WDUnitController: React.FC<UnitControllerProps> = function ({
     DISBAND: (command) => {
       const [key] = command;
       setIconState(UIState.DISBANDED);
-      console.log("comannded");
       dispatch(
         gameApiSliceActions.deleteCommand({
           type: "unitCommands",

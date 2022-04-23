@@ -302,7 +302,87 @@ const gameApiSlice = createSlice({
       drawBuilds(state);
     },
     updateTerritoriesMeta(state, action) {
-      console.log(action.payload);
+      const {
+        data: {
+          data: { contextVars, currentOrders, units },
+        },
+        overview: { members },
+        territoriesMeta,
+      }: {
+        data;
+        overview: {
+          members: GameOverviewResponse["members"];
+        };
+        territoriesMeta: TerritoriesMeta;
+      } = current(state);
+
+      if (currentOrders && contextVars && units) {
+        const { context } = contextVars;
+        const currentSavedDisbandedUnits = currentOrders.filter((order) => {
+          return order.type === "Disband";
+        });
+        const tMeta: TerritoriesMeta = action.payload;
+        const terrMetaEntries = Object.entries(tMeta);
+        const overtakenTerritories = terrMetaEntries.filter(([id, val]) => {
+          return (
+            val.countryID === context.countryID &&
+            val.countryID !== val.ownerCountryID
+          );
+        });
+
+        let userDisbandingUnits;
+
+        console.log("ot", overtakenTerritories);
+        if (overtakenTerritories.length > 0) {
+          overtakenTerritories.forEach(([terrKey, val], i) => {
+            const { id, unitID, countryID } = val;
+            const unitEntries = Object.entries(units);
+            const multiUnitTerr = unitEntries.filter(([uID, uData]) => {
+              return (
+                units[uID].terrID === id &&
+                uID !== unitID &&
+                countryID === context.countryID
+              );
+            });
+            if (multiUnitTerr.length > 0) {
+              userDisbandingUnits = multiUnitTerr;
+            }
+          });
+        }
+
+        if (userDisbandingUnits) {
+          userDisbandingUnits.forEach((unit) => {
+            if (context.orderStatus === "Saved,Completed,Ready") {
+              const command: GameCommand = {
+                command: "SET_UNIT",
+                data: {
+                  setUnit: {
+                    componentType: "Icon",
+                    country: undefined,
+                    iconState: UIState.BUILD,
+                    unitSlotName: "main",
+                    unitType: undefined,
+                  },
+                },
+              };
+
+              console.log(unit);
+              setCommand(
+                state,
+                command,
+                "territoryCommands",
+                Territory[unit[1].terrID],
+              );
+            } else if (context.orderStatus === "Saved,Completed") {
+              console.log(unit);
+              const command: GameCommand = {
+                command: "DISBAND",
+              };
+              setCommand(state, command, "unitCommands", unit[0]);
+            }
+          });
+        }
+      }
       state.territoriesMeta = action.payload;
     },
     processUnitClick(state, clickData) {

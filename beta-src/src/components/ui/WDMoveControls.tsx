@@ -13,10 +13,6 @@ import gameApiSlice, {
   gameOrdersMeta,
   saveOrders,
 } from "../../state/game/game-api-slice";
-import GameCommands, {
-  GameCommand,
-  GameCommandType,
-} from "../../state/interfaces/GameCommands";
 import UpdateOrder from "../../interfaces/state/UpdateOrder";
 
 interface WDMoveControlsProps {
@@ -49,8 +45,6 @@ const WDMoveControls: React.FC<WDMoveControlsProps> = function ({
       break;
   }
 
-  const disbandedUnits: [string, string][] = [];
-
   const clickButton = (type: Move) => {
     dispatch(
       gameApiSliceActions.processMapClick({
@@ -80,11 +74,6 @@ const WDMoveControls: React.FC<WDMoveControlsProps> = function ({
               };
             }
             orderUpdates.push(orderUpdate);
-            console.log("orderUpdates", orderUpdates);
-            if (ordersMeta[id].update?.type === "Disband") {
-              console.log("pushin");
-              disbandedUnits.push([id, unitID]);
-            }
           },
         );
         const orderSubmission = {
@@ -93,8 +82,6 @@ const WDMoveControls: React.FC<WDMoveControlsProps> = function ({
           contextKey: contextVars.contextKey,
           queryParams: {},
         };
-        console.log("yo4");
-        console.log("du", disbandedUnits);
 
         if (type === Move.READY) {
           orderSubmission.queryParams = ready
@@ -104,28 +91,10 @@ const WDMoveControls: React.FC<WDMoveControlsProps> = function ({
         dispatch(saveOrders(orderSubmission));
       }
     }
-    console.log("yo3");
 
     if (type === Move.READY) {
       toggleState(type);
     }
-    // if (disbandedUnits.length > 0) {
-    //   console.log("yo2");
-    //   const command: GameCommand = {
-    //     command: "DISBAND",
-    //   };
-
-    //   disbandedUnits.forEach(([id, unitId]) => {
-    //     console.log("iddd", id);
-    //     dispatch(
-    //       gameApiSliceActions.dispatchCommand({
-    //         command,
-    //         container: "unitCommands",
-    //         identifier: unitId,
-    //       }),
-    //     );
-    //   });
-    // }
   };
 
   const ordersMetaValues = Object.values(ordersMeta);
@@ -139,9 +108,6 @@ const WDMoveControls: React.FC<WDMoveControlsProps> = function ({
     (ordersLength === ordersSaved && save) ||
     (ordersLength !== ordersSaved && !save)
   ) {
-    console.log("yo1");
-    console.log("du2", disbandedUnits);
-
     toggleState(Move.SAVE);
   }
 
