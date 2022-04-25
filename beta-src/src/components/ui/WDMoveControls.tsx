@@ -55,6 +55,9 @@ const WDMoveControls: React.FC<WDMoveControlsProps> = function ({
     if ("currentOrders" in data && "contextVars" in data) {
       const { currentOrders, contextVars } = data;
       if (contextVars && currentOrders) {
+        const disbandingCurrentOrders = currentOrders.filter((o) => {
+          return o.type === "Disband";
+        });
         const orderUpdates: UpdateOrder[] = [];
         currentOrders.forEach(
           ({ fromTerrID, id, toTerrID, type: moveType, unitID, viaConvoy }) => {
@@ -113,6 +116,14 @@ const WDMoveControls: React.FC<WDMoveControlsProps> = function ({
   }
 
   const saveDisabled = ready || !save;
+
+  React.useEffect(() => {
+    if (data) {
+      dispatch(gameApiSliceActions.updateUnitsDisbanding());
+      dispatch(gameApiSliceActions.drawBuilds());
+      console.log("MVC");
+    }
+  }, [data]);
 
   return (
     <Stack

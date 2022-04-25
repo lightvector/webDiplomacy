@@ -152,11 +152,13 @@ const WDMapController: React.FC = function (): React.ReactElement {
 
   React.useEffect(() => {
     if (data) {
+      dispatch(gameApiSliceActions.updateUnitsDisbanding());
       dispatch(
         gameApiSliceActions.updateTerritoriesMeta(getTerritoriesMeta(data)),
       );
       dispatch(gameApiSliceActions.highlightMapTerritories());
       dispatch(gameApiSliceActions.drawBuilds());
+      console.log("mc");
     }
   }, [data]);
 
