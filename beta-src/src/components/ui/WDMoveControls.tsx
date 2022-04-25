@@ -59,6 +59,7 @@ const WDMoveControls: React.FC<WDMoveControlsProps> = function ({
         currentOrders.forEach(
           ({ fromTerrID, id, toTerrID, type: moveType, unitID, viaConvoy }) => {
             const updateReference = ordersMeta[id].update;
+            console.log(ordersMeta);
             let orderUpdate: UpdateOrder = {
               fromTerrID,
               id,
