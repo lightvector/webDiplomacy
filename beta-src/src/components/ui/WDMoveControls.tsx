@@ -7,7 +7,7 @@ import useViewport from "../../hooks/useViewport";
 import getDevice from "../../utils/getDevice";
 import Device from "../../enums/Device";
 import { useAppDispatch, useAppSelector } from "../../state/hooks";
-import {
+import gameApiSlice, {
   gameApiSliceActions,
   gameData,
   gameOrdersMeta,
@@ -55,10 +55,14 @@ const WDMoveControls: React.FC<WDMoveControlsProps> = function ({
     if ("currentOrders" in data && "contextVars" in data) {
       const { currentOrders, contextVars } = data;
       if (contextVars && currentOrders) {
+        const disbandingCurrentOrders = currentOrders.filter((o) => {
+          return o.type === "Disband";
+        });
         const orderUpdates: UpdateOrder[] = [];
         currentOrders.forEach(
           ({ fromTerrID, id, toTerrID, type: moveType, unitID, viaConvoy }) => {
             const updateReference = ordersMeta[id].update;
+            console.log(ordersMeta);
             let orderUpdate: UpdateOrder = {
               fromTerrID,
               id,
@@ -82,6 +86,7 @@ const WDMoveControls: React.FC<WDMoveControlsProps> = function ({
           contextKey: contextVars.contextKey,
           queryParams: {},
         };
+
         if (type === Move.READY) {
           orderSubmission.queryParams = ready
             ? { notready: "on" }
@@ -90,6 +95,7 @@ const WDMoveControls: React.FC<WDMoveControlsProps> = function ({
         dispatch(saveOrders(orderSubmission));
       }
     }
+
     if (type === Move.READY) {
       toggleState(type);
     }
@@ -110,6 +116,14 @@ const WDMoveControls: React.FC<WDMoveControlsProps> = function ({
   }
 
   const saveDisabled = ready || !save;
+
+  React.useEffect(() => {
+    if (data) {
+      dispatch(gameApiSliceActions.updateUnitsDisbanding());
+      dispatch(gameApiSliceActions.drawBuilds());
+      console.log("MVC");
+    }
+  }, [data]);
 
   return (
     <Stack
