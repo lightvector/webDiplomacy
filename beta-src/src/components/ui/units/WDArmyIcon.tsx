@@ -1,27 +1,16 @@
 import * as React from "react";
 import { useTheme } from "@mui/material/styles";
-import { gameIconProps } from "../../interfaces/Icons";
-import UIState from "../../enums/UIState";
+import UIState from "../../../enums/UIState";
+import { IconProps } from "../../../interfaces/Icons";
 
-const WDArmyIcon: React.FC<gameIconProps> = function ({
+const WDArmyIcon: React.FC<IconProps> = function ({
   country,
-  height = 50,
-  onClick = undefined,
   iconState = UIState.NONE,
-  viewBox,
-  width = 50,
 }): React.ReactElement {
   const theme = useTheme();
 
   return (
-    <svg
-      filter="drop-shadow(1px 4px 4px #323232)"
-      onClick={onClick}
-      height={height}
-      width={width}
-      viewBox={viewBox}
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <>
       {iconState === UIState.NONE && (
         <path
           d="M12.023 14a5 5 0 0 1 5-5h15.954a5 5 0 0 1 5 5v17.73a5 5 0 0 1-2.874 4.525l-7.977 3.747a5 5 0 0 1-4.252 0l-7.977-3.747a5 5 0 0 1-2.874-4.526V14Z"
@@ -41,7 +30,7 @@ const WDArmyIcon: React.FC<gameIconProps> = function ({
           d="M32.977 8H17.023a6 6 0 0 0-6 6v17.73a6 6 0 0 0 3.45 5.43l7.976 3.747a6 6 0 0 0 5.102 0l7.977-3.747a6 6 0 0 0 3.45-5.43V14a6 6 0 0 0-6-6Z"
           fill="#fff"
           stroke="#000"
-          strokeWidth={2}
+          strokeWidth={3}
         />
       )}
       {iconState === UIState.DISLODGED && (
@@ -89,7 +78,7 @@ const WDArmyIcon: React.FC<gameIconProps> = function ({
           fill={iconState === "selected" ? "#fff" : theme.palette[country].main}
         />
       )}
-    </svg>
+    </>
   );
 };
 

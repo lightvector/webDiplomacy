@@ -7,7 +7,6 @@ const initialState: GameState = {
     referenceCode: "",
     success: false,
     data: {
-      contextVars: { context: "", contextKey: "" },
       currentOrders: [],
       territories: {},
       territoryStatuses: [],
@@ -17,6 +16,17 @@ const initialState: GameState = {
   error: null,
   order: {
     inProgress: false,
+    onTerritory: null,
+    orderID: "",
+    toTerritory: null,
+    unitID: "",
+  },
+  ordersMeta: {},
+  territoriesMeta: {},
+  commands: {
+    mapCommands: {},
+    territoryCommands: {},
+    unitCommands: {},
   },
   overview: {
     alternatives: "",
