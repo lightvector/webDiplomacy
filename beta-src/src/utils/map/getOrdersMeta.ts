@@ -13,7 +13,7 @@ export default function getOrdersMeta(data, phase): Props {
 
   const updateOrdersMeta = {};
   if (contextVars?.context) {
-    if (phase === "Builds") {
+    if (phase === "Builds" || phase === "Retreats") {
       currentOrders.forEach(({ id, toTerrID, type }) => {
         updateOrdersMeta[id] = {
           saved: true,
