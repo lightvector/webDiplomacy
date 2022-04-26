@@ -150,7 +150,7 @@ const resetOrder = (state) => {
   } = current(state);
   if (type !== "hold") {
     const command: GameCommand = {
-      command: "NONE",
+      command: type === "Retreat" ? "DISLODGED" : "NONE",
     };
     setCommand(state, command, "unitCommands", unitID);
   }
@@ -178,7 +178,11 @@ const startNewOrder = (
   state.order.orderID = orderForUnit.id;
   state.order.onTerritory = onTerritory;
   state.order.toTerritory = null;
-  delete state.order.type;
+  if (orderForUnit.type === "Retreat") {
+    state.order.type = "Retreat";
+  } else {
+    delete state.order.type;
+  }
   const command: GameCommand = {
     command: "SELECTED",
   };
@@ -293,6 +297,33 @@ const drawBuilds = (state) => {
   }
 };
 
+const drawDislodged = (state) => {
+  const {
+    data: {
+      data: { contextVars, currentOrders, units },
+    },
+    ordersMeta,
+    territoriesMeta,
+    overview: { members, phase },
+  }: {
+    data;
+    ordersMeta: OrdersMeta;
+    territoriesMeta: TerritoriesMeta;
+    overview: {
+      members: GameOverviewResponse["members"];
+      phase: GameOverviewResponse["phase"];
+    };
+  } = current(state);
+  if (phase === "Retreats") {
+    currentOrders.forEach((order, index) => {
+      const command: GameCommand = {
+        command: "DISLODGED",
+      };
+      setCommand(state, command, "unitCommands", order.unitID);
+    });
+  }
+};
+
 const gameApiSlice = createSlice({
   name: "game",
   initialState,
@@ -300,6 +331,7 @@ const gameApiSlice = createSlice({
     updateOrdersMeta(state, action: UpdateOrdersMetaAction) {
       updateOrdersMeta(state, action.payload);
       drawBuilds(state);
+      drawDislodged(state);
     },
     updateTerritoriesMeta(state, action) {
       state.territoriesMeta = action.payload;
@@ -311,6 +343,7 @@ const gameApiSlice = createSlice({
           data: { contextVars },
         },
       } = current(state);
+
       if (contextVars?.context?.orderStatus) {
         const orderStates = getOrderStates(contextVars?.context?.orderStatus);
         if (orderStates.Ready) {
@@ -551,6 +584,7 @@ const gameApiSlice = createSlice({
       highlightMapTerritoriesBasedOnStatuses(state);
     },
     drawBuilds,
+    drawDislodged,
     dispatchCommand(state, action: DispatchCommandAction) {
       const { command, container, identifier } = action.payload;
       setCommand(state, command, container, identifier);
