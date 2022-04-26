@@ -980,15 +980,37 @@ class SendMessage extends ApiEntry {
 		if ($args['message'] === null)
 			throw new RequestException('message is required.');
 
-
 		$gameID = intval($args['gameID']);
+		$gamePhase = $game->phase;
 		$countryID = intval($args['countryID']);
 		$toCountryID = intval($args['toCountryID']);
 		$message = $args['message'];
-
+		$pressType = $game->pressType;
 		$game = $this->getAssociatedGame();
-		if ($game->pressType != 'Regular') {
-			throw new RequestException('Game is not regular press.');
+
+		// Press Types
+		// Regular - Global and Private messaging allowed.
+		// PublicPressOnly - Only Global messaging allowed.
+		// NoPress - No messaging allowed.
+		// RulebookPress - No messaging allowed during 'Builds' and 'Retreats' phases.
+		if ($pressType == 'NoPress' || $pressType == 'RulebookPress' && $gamePhase == 'Builds' || $pressType == 'RulebookPress' && $gamePhase == 'Retreats') {
+			throw new RequestException(
+				$this->JSONResponse(
+					'No messaging allowed for pressType = NoPress. No messaging allowed during "Retreats" and "Builds" phases for pressType = RulebookPress.',
+					'',
+					false,
+					[
+						'pressType' => $pressType,
+						'phase' => $gamePhase,
+					]
+				)
+			);
+		}
+
+		// Message max length is 250 characters
+		if(strlen($message) > 250)
+		{
+			throw new Exception(l_t("Message too long"));
 		}
 
 		if (!(isset($game->Members->ByUserID[$userID]) && $countryID == $game->Members->ByUserID[$userID]->countryID)) {
@@ -1004,8 +1026,14 @@ class SendMessage extends ApiEntry {
 			libGameMessage::send($toCountryID, $countryID, $message);
 		}
 
-		// FIXME: what to return?
-		return json_encode($args);
+		return $this->JSONResponse(
+			'Successfully posted message.',
+			'',
+			true,
+			[
+				$args,
+			]
+		);
 	}
 }
 
