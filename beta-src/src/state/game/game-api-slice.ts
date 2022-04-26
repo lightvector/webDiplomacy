@@ -225,86 +225,40 @@ const updateUnitsDisbanding = (state) => {
         (o) =>
           ordersMeta[o.id].update.type === "Disband" || o.type === "Disband",
       );
-      let territoryKeys;
-      console.log("tme", terrMetaEntries);
-      console.log("ot", overtakenTerritories);
 
-      // if (overtakenTerritories?.length) {
-      //   const terrKeyTempArray: string[] = [];
-      //   const disbandingUnitsTempArray: IOrderData[] = [];
-      //   overtakenTerritories.forEach(([terrKey, val]) => {
-      //     const { unitID, id } = val;
-      //     console.log("OM", ordersMeta);
-      //     const overtakenUnitsInOrder = currentOrders.find((o) => {
-      //       const { terrID } = units[o.unitID];
-      //       const { type } = o;
-      //       console.log(id, terrID);
-      //       console.log(o.unitID, unitID);
-      //       console.log(type);
-      //       console.log("space");
-      //       console.log(ordersMeta[o.id]);
-      //       console.log(ordersMeta[o.id].update.type === "Disband");
-      //       return (
-      //         (id === terrID && o.unitID !== unitID && type === "Disband") ||
-      //         (id === terrID &&
-      //           o.unitID !== unitID &&
-      //           ordersMeta[o.id] &&
-      //           ordersMeta[o.id].update.type === "Disband")
-      //       );
-      //     });
-
-      //     console.log("otuio", overtakenUnitsInOrder);
-
-      //     if (overtakenUnitsInOrder) {
-      //       disbandingUnitsTempArray.push(overtakenUnitsInOrder);
-      //       terrKeyTempArray.push(terrKey);
-      //     }
-      //   });
-      //   territoryKeys = terrKeyTempArray;
-      //   userDisbandingUnits = disbandingUnitsTempArray;
-      // }
-
-      console.log("userDisbandingUnits", userDisbandingUnits);
       if (userDisbandingUnits) {
         const orderStates = getOrderStates(contextVars?.context?.orderStatus);
         userDisbandingUnits.forEach((order, index) => {
-          // if (
-          //   orderStates.Ready &&
-          //   territoryKeys &&
-          //   (ordersMeta[order.id].update.type === "Disband" ||
-          //     order.type === "Disband")
-          // ) {
-          //   const { ownerCountryID, unitID } =
-          //     territoriesMeta[territoryKeys[index]];
-
-          //   const memberCountry = members.find(
-          //     (member) => member.countryID.toString() === ownerCountryID,
+          //   const unitData = units[order.unitID];
+          //   const overtakenUnitsInOrderFiltered = overtakenTerritories.filter(
+          //     ([tId, val]) => val.id === unitData.terrID,
           //   );
-          //   const { type } = units[unitID];
+          //   const overtakenUnitsInOrder = overtakenUnitsInOrderFiltered[0];
+          //   const [tId, tData] = overtakenUnitsInOrder;
+          //   const memberCountry = members.find(
+          //     (member) => member.countryID.toString() === tData.ownerCountryID,
+          //   );
+          //   const { type } = unitData;
+          //   console.log(tId, tData);
 
-          //   if (memberCountry) {
-          //     console.log(countryMap[memberCountry.country], type);
-          //     const command: GameCommand = {
-          //       command: "SET_UNIT",
-          //       data: {
-          //         setUnit: {
-          //           componentType: "Icon",
-          //           country: countryMap[memberCountry.country],
-          //           iconState: UIState.NONE,
-          //           unitSlotName: "main",
-          //           unitType: type,
-          //         },
-          //       },
-          //     };
-
-          //     setCommand(
-          //       state,
-          //       command,
-          //       "territoryCommands",
-          //       Territory[territoryKeys[index]],
-          //     );
-          //   }
           if (orderStates.Ready) {
+            // if (memberCountry) {
+            //   console.log(countryMap[memberCountry.country], type);
+            //   const command: GameCommand = {
+            //     command: "SET_UNIT",
+            //     data: {
+            //       setUnit: {
+            //         componentType: "Icon",
+            //         country: countryMap[memberCountry.country],
+            //         iconState: UIState.NONE,
+            //         unitSlotName: "main",
+            //         unitType: type,
+            //       },
+            //     },
+            //   };
+
+            //   setCommand(state, command, "territoryCommands", Territory[tId]);
+            // }
             const command: GameCommand = {
               command: "NONE",
             };
