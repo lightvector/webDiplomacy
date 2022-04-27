@@ -158,7 +158,6 @@ const WDMapController: React.FC = function (): React.ReactElement {
       );
       dispatch(gameApiSliceActions.highlightMapTerritories());
       dispatch(gameApiSliceActions.drawBuilds());
-      console.log("mc");
     }
   }, [data]);
 

@@ -262,13 +262,11 @@ const updateUnitsDisbanding = (state) => {
             const command: GameCommand = {
               command: "NONE",
             };
-            console.log("command", command);
             setCommand(state, command, "unitCommands", order.unitID);
-          } else if (orderStates.Completed && !orderStates.Ready) {
+          } else if (ordersMeta[order.id].saved && !orderStates.Ready) {
             const command: GameCommand = {
               command: "DISBAND",
             };
-            console.log("command", command);
             setCommand(state, command, "unitCommands", order.unitID);
           }
         });
@@ -447,8 +445,7 @@ const gameApiSlice = createSlice({
         if (
           order.onTerritory !== null &&
           Territory[order.onTerritory] === territoryName &&
-          !order.type &&
-          phase !== "Retreats"
+          !order.type
         ) {
           let command: GameCommand = {
             command: "HOLD",
@@ -463,13 +460,21 @@ const gameApiSlice = createSlice({
             },
           };
           setCommand(state, command, "mapCommands", "all");
-          if (currentOrders) {
-            const orderToUpdate = currentOrders.find(
-              (o) => o.unitID === currOrderUnitID,
-            );
-            if (orderToUpdate) {
+
+          if (currentOrders?.length) {
+            if (phase === "Retreats") {
               updateOrdersMeta(state, {
-                [orderToUpdate.id]: {
+                [order.orderID]: {
+                  saved: false,
+                  update: {
+                    type: "Disband",
+                    toTerrID: null,
+                  },
+                },
+              });
+            } else {
+              updateOrdersMeta(state, {
+                [order.orderID]: {
                   saved: false,
                   update: {
                     type: "Hold",
@@ -479,38 +484,11 @@ const gameApiSlice = createSlice({
               });
             }
           }
-          state.order.type = "hold";
-        } else if (
-          order.onTerritory !== null &&
-          Territory[order.onTerritory] === territoryName &&
-          !order.type &&
-          phase === "Retreats"
-        ) {
-          let command: GameCommand = {
-            command: "DISBAND",
-          };
-
-          setCommand(state, command, "territoryCommands", territoryName);
-          setCommand(state, command, "unitCommands", currOrderUnitID);
-          command = {
-            command: "REMOVE_ARROW",
-            data: {
-              orderID: order.orderID,
-            },
-          };
-          setCommand(state, command, "mapCommands", "all");
-          if (currentOrders?.length) {
-            updateOrdersMeta(state, {
-              [order.orderID]: {
-                saved: false,
-                update: {
-                  type: "Disband",
-                  toTerrID: null,
-                },
-              },
-            });
+          if (phase === "Retreats") {
+            state.order.type = "hold";
+          } else {
+            state.order.type = "disband";
           }
-          state.order.type = "hold";
         } else if (order.onTerritory !== null && order.type === "hold") {
           highlightMapTerritoriesBasedOnStatuses(state);
           resetOrder(state);
@@ -674,7 +652,6 @@ const gameApiSlice = createSlice({
     updateUnitsDisbanding,
     dispatchCommand(state, action: DispatchCommandAction) {
       const { command, container, identifier } = action.payload;
-      console.log("command dispatched");
       setCommand(state, command, container, identifier);
     },
   },
@@ -787,139 +764,3 @@ export const gameOrdersMeta = ({
 export const gameOrder = ({ game: { order } }: RootState): OrderState => order;
 
 export default gameApiSlice.reducer;
-
-// if (currentOrders && contextVars) {
-//   const { context } = contextVars;
-//   if (context.phase === "Retreats") {
-//     const tMeta: TerritoriesMeta = action.payload;
-//     const terrMetaEntries = Object.entries(tMeta);
-//     const disbandingCurrentOrders = currentOrders.filter((o) => {
-//       return o.type === "Disband";
-//     });
-//     const overtakenTerritories = terrMetaEntries.filter(([id, val]) => {
-//       return (
-//         val.countryID === context.countryID &&
-//         val.countryID !== val.ownerCountryID
-//       );
-//     });
-
-//     let userDisbandingUnits;
-//     let territoryKeys;
-//     console.log("ot", overtakenTerritories);
-
-//     if (overtakenTerritories.length > 0) {
-//       console.log("ot", overtakenTerritories);
-//       const terrKeyTempArray: string[] = [];
-//       const disbandingUnitsTempArray: CurrentOrder[] = [];
-//       overtakenTerritories.forEach(([terrKey, val]) => {
-//         const { unitID } = val;
-//         const overtakenUnitsInOrder = currentOrders.find(
-//           (o) => unitID && o.unitID === unitID,
-//         );
-
-//         if (overtakenUnitsInOrder) {
-//           disbandingUnitsTempArray.push(overtakenUnitsInOrder);
-//           terrKeyTempArray.push(terrKey);
-//         }
-//       });
-//       territoryKeys = terrKeyTempArray;
-//       userDisbandingUnits = disbandingUnitsTempArray;
-//     }
-//     console.log("ud", userDisbandingUnits);
-//     console.log("tk", territoryKeys);
-//     if (userDisbandingUnits.length > 0) {
-//       userDisbandingUnits.forEach((order, index) => {
-//         if (
-//           context.orderStatus === "Saved,Completed,Ready" &&
-//           order.type === "Disband"
-//         ) {
-//           const command: GameCommand = {
-//             command: "SET_UNIT",
-//             data: {
-//               setUnit: {
-//                 componentType: "Icon",
-//                 country: undefined,
-//                 iconState: UIState.DISBANDED,
-//                 unitSlotName: "main",
-//                 unitType: undefined,
-//               },
-//             },
-//           };
-
-//           setCommand(
-//             state,
-//             command,
-//             "territoryCommands",
-//             Territory[territoryKeys[index]],
-//           );
-//         } else if (
-//           context.orderStatus === "Saved,Completed" &&
-//           order.type === "Disband"
-//         ) {
-//           const command: GameCommand = {
-//             command: "DISBAND",
-//           };
-//           setCommand(state, command, "unitCommands", order.unitID);
-//         }
-//       });
-//     } else if (
-//       disbandingCurrentOrders.length > 0 &&
-//       userDisbandingUnits.length === 0
-//     ) {
-//       disbandingCurrentOrders.forEach((order, index) => {
-//         if (
-//           context.orderStatus === "Saved,Completed,Ready" &&
-//           order.type === "Disband"
-//         ) {
-//           const command: GameCommand = {
-//             command: "SET_UNIT",
-//             data: {
-//               setUnit: {
-//                 componentType: "Icon",
-//                 country: undefined,
-//                 iconState: UIState.DISBANDED,
-//                 unitSlotName: "main",
-//                 unitType: undefined,
-//               },
-//             },
-//           };
-
-//           setCommand(
-//             state,
-//             command,
-//             "territoryCommands",
-//             Territory[territoryKeys[index]],
-//           );
-//         } else if (
-//           context.orderStatus === "Saved,Completed" &&
-//           order.type === "Disband"
-//         ) {
-//           const command: GameCommand = {
-//             command: "DISBAND",
-//           };
-//           setCommand(state, command, "unitCommands", order.unitID);
-//         }
-//       });
-//     }
-//   }
-// }
-
-// if (overtakenTerritories.length > 0) {
-//   const terrKeyTempArray: string[] = [];
-//   overtakenTerritories.forEach(([terrKey, val]) => {
-//     const { id, unitID, countryID } = val;
-//     const unitEntries = Object.entries(units);
-//     const multiUnitTerr = unitEntries.filter(([uID, _uData]) => {
-//       return (
-//         units[uID].terrID === id &&
-//         uID !== unitID &&
-//         countryID === context.countryID
-//       );
-//     });
-//     if (multiUnitTerr.length > 0 && terrKey) {
-//       userDisbandingUnits = multiUnitTerr;
-//       terrKeyTempArray.push(terrKey);
-//     }
-//   });
-//   territoryKeys = terrKeyTempArray;
-// }
