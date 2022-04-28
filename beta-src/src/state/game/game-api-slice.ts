@@ -30,7 +30,6 @@ import drawCurrentMoveOrders from "../../utils/map/drawCurrentMoveOrders";
 import getOrdersMeta from "../../utils/map/getOrdersMeta";
 import getUnits from "../../utils/map/getUnits";
 import UnitType from "../../types/UnitType";
-import { IOrderData } from "../../models/Interfaces";
 
 export const fetchGameData = createAsyncThunk(
   ApiRoute.GAME_DATA,
@@ -197,11 +196,11 @@ const drawOrders = (state) => {
 const updateUnitsDisbanding = (state) => {
   const {
     data: {
-      data: { contextVars, currentOrders, units },
+      data: { contextVars, currentOrders },
     },
     territoriesMeta,
     ordersMeta,
-    overview: { members, phase },
+    overview: { phase },
   }: {
     data;
     territoriesMeta: TerritoriesMeta;
@@ -212,15 +211,7 @@ const updateUnitsDisbanding = (state) => {
     };
   } = current(state);
   if (currentOrders && contextVars && territoriesMeta) {
-    const { context } = contextVars;
     if (phase === "Retreats") {
-      const terrMetaEntries = Object.entries(territoriesMeta);
-      const overtakenTerritories = terrMetaEntries.filter(
-        ([id, val]) =>
-          val.countryID === context.countryID &&
-          val.countryID !== val.ownerCountryID,
-      );
-
       const userDisbandingUnits = currentOrders.filter(
         (o) =>
           ordersMeta[o.id].update.type === "Disband" || o.type === "Disband",
@@ -229,36 +220,7 @@ const updateUnitsDisbanding = (state) => {
       if (userDisbandingUnits) {
         const orderStates = getOrderStates(contextVars?.context?.orderStatus);
         userDisbandingUnits.forEach((order, index) => {
-          //   const unitData = units[order.unitID];
-          //   const overtakenUnitsInOrderFiltered = overtakenTerritories.filter(
-          //     ([tId, val]) => val.id === unitData.terrID,
-          //   );
-          //   const overtakenUnitsInOrder = overtakenUnitsInOrderFiltered[0];
-          //   const [tId, tData] = overtakenUnitsInOrder;
-          //   const memberCountry = members.find(
-          //     (member) => member.countryID.toString() === tData.ownerCountryID,
-          //   );
-          //   const { type } = unitData;
-          //   console.log(tId, tData);
-
           if (orderStates.Ready) {
-            // if (memberCountry) {
-            //   console.log(countryMap[memberCountry.country], type);
-            //   const command: GameCommand = {
-            //     command: "SET_UNIT",
-            //     data: {
-            //       setUnit: {
-            //         componentType: "Icon",
-            //         country: countryMap[memberCountry.country],
-            //         iconState: UIState.NONE,
-            //         unitSlotName: "main",
-            //         unitType: type,
-            //       },
-            //     },
-            //   };
-
-            //   setCommand(state, command, "territoryCommands", Territory[tId]);
-            // }
             const command: GameCommand = {
               command: "NONE",
             };
@@ -462,33 +424,29 @@ const gameApiSlice = createSlice({
           setCommand(state, command, "mapCommands", "all");
 
           if (currentOrders?.length) {
-            if (phase === "Retreats") {
-              updateOrdersMeta(state, {
-                [order.orderID]: {
-                  saved: false,
-                  update: {
-                    type: "Disband",
-                    toTerrID: null,
+            phase === "Retreats"
+              ? updateOrdersMeta(state, {
+                  [order.orderID]: {
+                    saved: false,
+                    update: {
+                      type: "Disband",
+                      toTerrID: null,
+                    },
                   },
-                },
-              });
-            } else {
-              updateOrdersMeta(state, {
-                [order.orderID]: {
-                  saved: false,
-                  update: {
-                    type: "Hold",
-                    toTerrID: null,
+                })
+              : updateOrdersMeta(state, {
+                  [order.orderID]: {
+                    saved: false,
+                    update: {
+                      type: "Hold",
+                      toTerrID: null,
+                    },
                   },
-                },
-              });
-            }
+                });
           }
-          if (phase === "Retreats") {
-            state.order.type = "hold";
-          } else {
-            state.order.type = "disband";
-          }
+          phase === "Retreats"
+            ? (state.order.type = "hold")
+            : (state.order.type = "disband");
         } else if (order.onTerritory !== null && order.type === "hold") {
           highlightMapTerritoriesBasedOnStatuses(state);
           resetOrder(state);
