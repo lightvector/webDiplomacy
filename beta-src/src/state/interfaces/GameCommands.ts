@@ -19,6 +19,7 @@ export const ValidCommands = [
   "NONE",
   "REMOVE_ARROW",
   "REMOVE_BUILD",
+  "RETREAT",
   "SELECTED",
   "SET_UNIT",
 ] as const;

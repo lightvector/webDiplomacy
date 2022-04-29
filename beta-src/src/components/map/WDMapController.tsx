@@ -157,7 +157,7 @@ const WDMapController: React.FC = function (): React.ReactElement {
       );
       dispatch(gameApiSliceActions.highlightMapTerritories());
       dispatch(gameApiSliceActions.drawBuilds());
-      dispatch(gameApiSliceActions.drawDislodged());
+      dispatch(gameApiSliceActions.updateDislodged());
     }
   }, [data]);
 

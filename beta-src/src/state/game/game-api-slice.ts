@@ -150,7 +150,7 @@ const resetOrder = (state) => {
   } = current(state);
   if (type !== "hold") {
     const command: GameCommand = {
-      command: type === "Retreat" ? "DISLODGED" : "NONE",
+      command: "NONE",
     };
     setCommand(state, command, "unitCommands", unitID);
   }
@@ -178,11 +178,7 @@ const startNewOrder = (
   state.order.orderID = orderForUnit.id;
   state.order.onTerritory = onTerritory;
   state.order.toTerritory = null;
-  if (orderForUnit.type === "Retreat") {
-    state.order.type = "Retreat";
-  } else {
-    delete state.order.type;
-  }
+  delete state.order.type;
   const command: GameCommand = {
     command: "SELECTED",
   };
@@ -197,6 +193,28 @@ const drawOrders = (state) => {
   drawCurrentMoveOrders(data, ordersMeta);
 };
 
+const updateDislodged = (state) => {
+  const {
+    data: {
+      data: { currentOrders },
+    },
+    overview: { phase },
+  }: {
+    data;
+    overview: {
+      phase: GameOverviewResponse["phase"];
+    };
+  } = current(state);
+  if (phase === "Retreats") {
+    currentOrders.forEach((order) => {
+      const command: GameCommand = {
+        command: "DISLODGED",
+      };
+      setCommand(state, command, "unitCommands", order.unitID);
+    });
+  }
+};
+
 const updateOrdersMeta = (state, updates: EditOrderMeta) => {
   Object.entries(updates).forEach(([orderID, update]) => {
     state.ordersMeta[orderID] = {
@@ -205,6 +223,7 @@ const updateOrdersMeta = (state, updates: EditOrderMeta) => {
     };
   });
   drawOrders(state);
+  updateDislodged(state);
 };
 
 const highlightMapTerritoriesBasedOnStatuses = (state) => {
@@ -297,33 +316,6 @@ const drawBuilds = (state) => {
   }
 };
 
-const drawDislodged = (state) => {
-  const {
-    data: {
-      data: { contextVars, currentOrders, units },
-    },
-    ordersMeta,
-    territoriesMeta,
-    overview: { members, phase },
-  }: {
-    data;
-    ordersMeta: OrdersMeta;
-    territoriesMeta: TerritoriesMeta;
-    overview: {
-      members: GameOverviewResponse["members"];
-      phase: GameOverviewResponse["phase"];
-    };
-  } = current(state);
-  if (phase === "Retreats") {
-    currentOrders.forEach((order, index) => {
-      const command: GameCommand = {
-        command: "DISLODGED",
-      };
-      setCommand(state, command, "unitCommands", order.unitID);
-    });
-  }
-};
-
 const gameApiSlice = createSlice({
   name: "game",
   initialState,
@@ -331,7 +323,7 @@ const gameApiSlice = createSlice({
     updateOrdersMeta(state, action: UpdateOrdersMetaAction) {
       updateOrdersMeta(state, action.payload);
       drawBuilds(state);
-      drawDislodged(state);
+      updateDislodged(state);
     },
     updateTerritoriesMeta(state, action) {
       state.territoriesMeta = action.payload;
@@ -407,13 +399,21 @@ const gameApiSlice = createSlice({
             },
           };
           setCommand(state, command, "mapCommands", "all");
-          if (currentOrders) {
-            const orderToUpdate = currentOrders.find(
-              (o) => o.unitID === currOrderUnitID,
-            );
-            if (orderToUpdate) {
+
+          if (currentOrders?.length) {
+            if (phase === "Retreats") {
               updateOrdersMeta(state, {
-                [orderToUpdate.id]: {
+                [order.orderID]: {
+                  saved: false,
+                  update: {
+                    type: "Disband",
+                    toTerrID: null,
+                  },
+                },
+              });
+            } else {
+              updateOrdersMeta(state, {
+                [order.orderID]: {
                   saved: false,
                   update: {
                     type: "Hold",
@@ -452,7 +452,7 @@ const gameApiSlice = createSlice({
               [order.orderID]: {
                 saved: false,
                 update: {
-                  type: "Move",
+                  type: phase === "Retreats" ? "Retreat" : "Move",
                   toTerrID: canMove.id,
                   viaConvoy: "No",
                 },
@@ -584,7 +584,7 @@ const gameApiSlice = createSlice({
       highlightMapTerritoriesBasedOnStatuses(state);
     },
     drawBuilds,
-    drawDislodged,
+    updateDislodged,
     dispatchCommand(state, action: DispatchCommandAction) {
       const { command, container, identifier } = action.payload;
       setCommand(state, command, container, identifier);
