@@ -1,13 +1,14 @@
 import Territory from "../../../../enums/map/variants/classic/Territory";
 import UnitSlotName from "../../../../types/map/UnitSlotName";
 
-export interface ITerritory {
+export interface MTerritory {
+  parent?: Territory;
   territory: Territory;
   unitSlotName: UnitSlotName;
 }
 
 type ITerritoryMap = {
-  [key: string]: ITerritory;
+  [key: string]: MTerritory;
 };
 
 /**
@@ -323,11 +324,13 @@ const TerritoryMap: ITerritoryMap = {
     unitSlotName: "sc",
   },
   "St. Petersburg (North Coast)": {
-    territory: Territory.SAINT_PETERSBURG,
+    parent: Territory.SAINT_PETERSBURG,
+    territory: Territory.SAINT_PETERSBURG_NORTH_COAST,
     unitSlotName: "nc",
   },
   "St. Petersburg (South Coast)": {
-    territory: Territory.SAINT_PETERSBURG,
+    parent: Territory.SAINT_PETERSBURG,
+    territory: Territory.SAINT_PETERSBURG_SOUTH_COAST,
     unitSlotName: "sc",
   },
   "Bulgaria (North Coast)": {
