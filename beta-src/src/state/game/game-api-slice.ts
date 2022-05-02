@@ -147,10 +147,11 @@ const setCommand = (
 const resetOrder = (state) => {
   const {
     order: { unitID, type },
+    overview: { phase },
   } = current(state);
   if (type !== "hold") {
     const command: GameCommand = {
-      command: "NONE",
+      command: phase === "Retreats" ? "DISLODGED" : "NONE",
     };
     setCommand(state, command, "unitCommands", unitID);
   }
@@ -198,14 +199,17 @@ const updateDislodged = (state) => {
     data: {
       data: { currentOrders },
     },
+    order: { inProgress },
     overview: { phase },
   }: {
     data;
+    order;
     overview: {
       phase: GameOverviewResponse["phase"];
     };
   } = current(state);
-  if (phase === "Retreats") {
+
+  if (phase === "Retreats" && !inProgress) {
     currentOrders.forEach((order) => {
       const command: GameCommand = {
         command: "DISLODGED",
@@ -323,7 +327,6 @@ const gameApiSlice = createSlice({
     updateOrdersMeta(state, action: UpdateOrdersMetaAction) {
       updateOrdersMeta(state, action.payload);
       drawBuilds(state);
-      updateDislodged(state);
     },
     updateTerritoriesMeta(state, action) {
       state.territoriesMeta = action.payload;
@@ -346,7 +349,10 @@ const gameApiSlice = createSlice({
       if (inProgress) {
         if (order.type === "hold" && order.onTerritory !== null) {
           highlightMapTerritoriesBasedOnStatuses(state);
-        } else if (order.type === "move" && order.toTerritory !== null) {
+        } else if (
+          (order.type === "move" || order.type === "retreat") &&
+          order.toTerritory !== null
+        ) {
           highlightMapTerritoriesBasedOnStatuses(state);
         }
       }
@@ -380,6 +386,7 @@ const gameApiSlice = createSlice({
       const {
         payload: { clickObject, evt, name: territoryName },
       } = clickData;
+
       if (order.inProgress) {
         const currOrderUnitID = order.unitID;
         if (
@@ -427,7 +434,10 @@ const gameApiSlice = createSlice({
         } else if (order.onTerritory !== null && order.type === "hold") {
           highlightMapTerritoriesBasedOnStatuses(state);
           resetOrder(state);
-        } else if (order.toTerritory !== null && order.type === "move") {
+        } else if (
+          order.toTerritory !== null &&
+          (order.type === "move" || order.type === "retreat")
+        ) {
           highlightMapTerritoriesBasedOnStatuses(state);
           resetOrder(state);
         } else if (
@@ -459,7 +469,7 @@ const gameApiSlice = createSlice({
               },
             });
             state.order.toTerritory = TerritoryMap[canMove.name].territory;
-            state.order.type = "move";
+            state.order.type = phase === "Retreats" ? "retreat" : "move";
           } else {
             const command: GameCommand = {
               command: "INVALID_CLICK",

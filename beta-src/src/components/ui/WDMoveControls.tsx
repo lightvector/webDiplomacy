@@ -87,7 +87,7 @@ const WDMoveControls: React.FC<WDMoveControlsProps> = function ({
             ? { notready: "on" }
             : { ready: "on" };
         }
-        console.log(orderSubmission);
+
         dispatch(saveOrders(orderSubmission));
       }
     }
