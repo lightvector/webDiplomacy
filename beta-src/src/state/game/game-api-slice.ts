@@ -187,18 +187,15 @@ const startNewOrder = (
   state.order.onTerritory = onTerritory;
   state.order.toTerritory = toTerritory;
   delete state.order.type;
-  const command: GameCommand = {
-    command: "SELECTED",
-  };
-  setCommand(state, command, "unitCommands", unitID);
-};
-
-const drawOrders = (state) => {
-  const {
-    data: { data },
-    ordersMeta,
-  } = current(state);
-  drawCurrentMoveOrders(data, ordersMeta);
+  if (type) {
+    state.order.type = type;
+  }
+  if (unitID) {
+    const command: GameCommand = {
+      command: "SELECTED",
+    };
+    setCommand(state, command, "unitCommands", unitID);
+  }
 };
 
 const updateDislodged = (state) => {
@@ -223,26 +220,6 @@ const updateDislodged = (state) => {
       };
       setCommand(state, command, "unitCommands", order.unitID);
     });
-  }
-};
-
-const updateOrdersMeta = (state, updates: EditOrderMeta) => {
-  Object.entries(updates).forEach(([orderID, update]) => {
-    state.ordersMeta[orderID] = {
-      ...state.ordersMeta[orderID],
-      ...update,
-    };
-  });
-  drawOrders(state);
-  updateDislodged(state);
-  if (type) {
-    state.order.type = type;
-  }
-  if (unitID) {
-    const command: GameCommand = {
-      command: "SELECTED",
-    };
-    setCommand(state, command, "unitCommands", unitID);
   }
 };
 
@@ -359,6 +336,7 @@ const updateOrdersMeta = (state, updates: EditOrderMeta) => {
     };
   });
   drawOrders(state);
+  updateDislodged(state);
 };
 
 const gameApiSlice = createSlice({
@@ -427,7 +405,6 @@ const gameApiSlice = createSlice({
       const {
         payload: { clickObject, evt, name: territoryName },
       } = clickData;
-
       if (order.inProgress) {
         const currOrderUnitID = order.unitID;
         if (
@@ -447,21 +424,13 @@ const gameApiSlice = createSlice({
             },
           };
           setCommand(state, command, "mapCommands", "all");
-
-          if (currentOrders?.length) {
-            if (phase === "Retreats") {
+          if (currentOrders) {
+            const orderToUpdate = currentOrders.find(
+              (o) => o.unitID === currOrderUnitID,
+            );
+            if (orderToUpdate) {
               updateOrdersMeta(state, {
-                [order.orderID]: {
-                  saved: false,
-                  update: {
-                    type: "Disband",
-                    toTerrID: null,
-                  },
-                },
-              });
-            } else {
-              updateOrdersMeta(state, {
-                [order.orderID]: {
+                [orderToUpdate.id]: {
                   saved: false,
                   update: {
                     type: "Hold",
