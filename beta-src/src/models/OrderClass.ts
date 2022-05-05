@@ -113,7 +113,7 @@ export default class OrderClass {
         ConvoyArmies = againstTerritory.ConvoyGroup.armies;
       }
 
-      possibleUnits = possibleUnits.concat(ConvoyArmies);
+      possibleUnits = [...possibleUnits, ...ConvoyArmies];
     }
 
     return Array.from(
@@ -122,7 +122,7 @@ export default class OrderClass {
       ),
     ).filter((possibleUnitTerritory) => {
       return (
-        possibleUnitTerritory.id !== this.unit.Territory.coastParent.id &&
+        possibleUnitTerritory.id !== this.unit.Territory.coastParentID &&
         possibleUnitTerritory.id !== againstTerritory.id
       );
     });

@@ -1,11 +1,15 @@
 import BoardClass from "../../models/BoardClass";
 import OrderClass from "../../models/OrderClass";
 import TerritoryClass from "../../models/TerritoryClass";
+<<<<<<< HEAD
 import UnitClass from "../../models/UnitClass";
+import { EditOrderMeta } from "../../state/interfaces/SavedOrders";
+=======
 import {
   EditOrderMeta,
   SupportMoveChoice,
 } from "../../state/interfaces/SavedOrders";
+>>>>>>> staging
 
 interface Props {
   [key: string]: EditOrderMeta;
@@ -38,15 +42,16 @@ export default function getOrdersMeta(data, phase): Props {
       const newOrders: OrderClass[] = [];
 
       currentOrders.forEach((o) => {
-        const { id, unitID, type, toTerrID, fromTerrID } = o;
+        const { id, unitID, type, toTerrID } = o;
         let orderUnit = newBoard.findUnitByID(unitID);
+
         if (!orderUnit?.Territory && phase === "Retreats") {
           orderUnit = new UnitClass({
             ...units[unitID],
             Territory: territories[units[unitID].terrID],
           });
-          newBoard.units.push(orderUnit);
         }
+
         if (orderUnit) {
           const tempOrder = new OrderClass(newBoard, o, orderUnit);
           newOrders.push(tempOrder);
@@ -57,6 +62,9 @@ export default function getOrdersMeta(data, phase): Props {
               fromTerrID,
             },
           };
+          if (!newBoard.findUnitByID(unitID)) {
+            newBoard.units.push(orderUnit);
+          }
         }
       });
 
@@ -80,25 +88,25 @@ export default function getOrdersMeta(data, phase): Props {
           allowedBorderCrossings = moveChoices.filter((choice) => {
             const { Borders } = choice;
             const from = Borders.find(
-              (border) => border.id === orderUnit?.terrID,
+              (border) => border.id === orderUnit.terrID,
             );
-            if (from && orderUnit?.canCrossBorder(from)) {
+            if (from && orderUnit.canCrossBorder(from)) {
               return true;
             }
             return false;
           });
           if (phase === "Retreats") {
             const occupiedTerritory = newBoard.territories.find(
-              (t) => t.id === orderUnit?.terrID,
+              (t) => t.id === orderUnit.terrID,
             );
             allowedBorderCrossings = allowedBorderCrossings.filter(
-              (crossing) =>
-                !crossing.unitID &&
-                !crossing.standoff &&
-                crossing.id !== occupiedTerritory?.occupiedFromTerrID,
+              (crossing) => !crossing.unitID && !crossing.standoff,
             );
-            if (!allowedBorderCrossings.length) {
-              updateOrdersMeta[o.orderData.id].update.type = "Disband";
+            if (occupiedTerritory) {
+              allowedBorderCrossings = allowedBorderCrossings.filter(
+                (crossing) =>
+                  crossing.id !== occupiedTerritory.occupiedFromTerrID,
+              );
             }
           }
           updateOrdersMeta[o.orderData.id] = {

@@ -227,7 +227,7 @@ const updateDislodged = (state) => {
       phase: GameOverviewResponse["phase"];
     };
   } = current(state);
-  console.log(phase, inProgress);
+
   if (phase === "Retreats" && !inProgress) {
     currentOrders.forEach((order) => {
       const command: GameCommand = {
@@ -345,7 +345,6 @@ const drawOrders = (state) => {
   drawSupportMoveOrders(data, maps, ordersMeta);
   drawSupportHoldOrders(data, ordersMeta);
   drawBuilds(state);
-  updateDislodged(state);
 };
 
 const updateOrdersMeta = (state, updates: EditOrderMeta) => {
@@ -356,6 +355,7 @@ const updateOrdersMeta = (state, updates: EditOrderMeta) => {
     };
   });
   drawOrders(state);
+  updateDislodged(state);
 };
 
 const gameApiSlice = createSlice({
@@ -507,10 +507,14 @@ const gameApiSlice = createSlice({
         } else if (onTerritory !== null && type === "hold") {
           highlightMapTerritoriesBasedOnStatuses(state);
           resetOrder(state);
+<<<<<<< HEAD
         } else if (
-          toTerritory !== null &&
-          (type === "move" || type === "retreat")
+          order.toTerritory !== null &&
+          (order.type === "move" || order.type === "retreat")
         ) {
+=======
+        } else if (toTerritory !== null && type === "move") {
+>>>>>>> staging
           highlightMapTerritoriesBasedOnStatuses(state);
           resetOrder(state);
         } else if (toTerritory !== null && type === "build") {

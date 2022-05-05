@@ -163,8 +163,11 @@ const WDMapController: React.FC = function (): React.ReactElement {
         gameApiSliceActions.updateTerritoriesMeta(getTerritoriesMeta(data)),
       );
       dispatch(gameApiSliceActions.highlightMapTerritories());
+<<<<<<< HEAD
       dispatch(gameApiSliceActions.drawBuilds());
       dispatch(gameApiSliceActions.updateDislodged());
+=======
+>>>>>>> staging
     }
   }, [data]);
 
