@@ -17,8 +17,8 @@
     You should have received a copy of the GNU Affero General Public License
     along with webDiplomacy.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 define('IN_CODE', 1);
+
 require_once('header.php');
 require_once('config.php');
 require_once('global/definitions.php');
@@ -1126,8 +1126,6 @@ class GetMessages extends ApiEntry {
 				true,
 				[
 					'messages' => $messages,
-					'phase' => $gamePhase,
-					'pressType' => $pressType,
 				]
 			);
 		}
@@ -1139,8 +1137,6 @@ class GetMessages extends ApiEntry {
 			true,
 			[
 				'messages' => $messages,
-				'phase' => $gamePhase,
-				'pressType' => $pressType,
 			]
 		);
 	}
@@ -1343,7 +1339,6 @@ class Api {
 	 */
 	public function run() {
 		global $MC, $User;
-		
 		// Get route.
 		if (!isset($_GET['route']))
 			throw new RequestException('No route provided.');
