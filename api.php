@@ -1029,7 +1029,7 @@ class GetMessages extends ApiEntry {
 		$game = $this->getAssociatedGame();
 		$gameID = $args['gameID'];
 		$gamePhase = $game->phase;
-		$limitAmount = 25;
+		$limitAmount = 10000;
 		$limit = $args['limit'];
 		$offset = $args['offset'];
 		$pressType = $game->pressType;
@@ -1050,7 +1050,7 @@ class GetMessages extends ApiEntry {
 
 		if ($limit > $limitAmount) {
 			throw new RequestException(
-				$this->JSONResponse('limit should not exceed 25', '', false, ['limit' => $limit])
+				$this->JSONResponse('limit should not exceed 10000', '', false, ['limit' => $limit])
 			);
 		}
 
@@ -1099,14 +1099,13 @@ class GetMessages extends ApiEntry {
 				);
 			}
 
-			if (isset($args['allMessages'])) {
-				$where = "(toCountryID = 0 OR fromCountryID = 0 OR toCountryID = $countryID OR fromCountryID = $countryID)";
-			} else {
-				$where = "( toCountryID = $toCountryID AND fromCountryID = $countryID )
-				OR
-				( fromCountryID = $toCountryID AND toCountryID = $countryID )";
+			$where = "(toCountryID = $countryID OR fromCountryID = $countryID)";
+			if (isset($args['toCountryID'])) {
+				$where = "$where OR (toCountryID = $toCountryID OR fromCountryID = $toCountryID)";
 			}
-
+			if (isset($args['allMessages'])) {
+				$where = "$where OR (toCountryID = 0 OR fromCountryID = 0)";
+			}
 		}
 
 		$tabl = $DB->sql_tabl("SELECT message, toCountryID, fromCountryID, turn, timeSent
@@ -1115,7 +1114,13 @@ class GetMessages extends ApiEntry {
 
 		$messages = array();
 		while ($message = $DB->tabl_hash($tabl)) {
-			$messages[] = $message;
+			$messages[] = [
+				'fromCountryID' => (int) $message['fromCountryID'],
+				'message' => $message['message'],
+				'timeSent' => (int) $message['timeSent'],
+				'toCountryID' => (int) $message['toCountryID'],
+				'turn' => (int) $message['turn'],
+			];
 		}
 
 	    // Checks if there are any messages in the array.
