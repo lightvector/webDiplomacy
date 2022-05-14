@@ -992,6 +992,7 @@ class SendMessage extends ApiEntry {
 		$message = $args['message'];
 
 		$game = $this->getAssociatedGame();
+
 		if ($game->pressType != 'Regular') {
 			throw new RequestException('Game is not regular press.');
 		}
@@ -999,18 +1000,21 @@ class SendMessage extends ApiEntry {
 		if (!(isset($game->Members->ByUserID[$userID]) && $countryID == $game->Members->ByUserID[$userID]->countryID)) {
 			throw new ClientForbiddenException('User does not have explicit permission to make this API call.');
 		}
-
-		if ($toCountryID < 1 || $toCountryID > count($game->Members) || $toCountryID == $countryID) {
+		if ($toCountryID < 1 || $toCountryID > count($game->Members->ByID) || $toCountryID == $countryID) {
 			throw new RequestException('Invalid toCountryID');
 		}
 
 		$toUser = new User($game->Members->ByCountryID[$toCountryID]->userID);
 		if(!$toUser->isCountryMuted($game->id, $countryID)) {
-			libGameMessage::send($toCountryID, $countryID, $message);
+			$timeSent = libGameMessage::send($toCountryID, $countryID, $message, $gameID);
+			$ret = [
+				"fromCountryID" => intval($args['countryID']),
+				"toCountryID" => intval($args["toCountryID"]),
+				"message" => $args["message"],
+				"timeSent" => $timeSent,
+			];
+			return json_encode($ret);
 		}
-
-		// FIXME: what to return?
-		return json_encode($args);
 	}
 }
 
