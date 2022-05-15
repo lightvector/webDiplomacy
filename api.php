@@ -976,7 +976,6 @@ class SendMessage extends ApiEntry {
 	}
 	public function run($userID, $permissionIsExplicit) {
 		global $DB;
-
 		$args = $this->getArgs();
 
 		if ($args['toCountryID'] === null)
@@ -1000,6 +999,7 @@ class SendMessage extends ApiEntry {
 		if (!(isset($game->Members->ByUserID[$userID]) && $countryID == $game->Members->ByUserID[$userID]->countryID)) {
 			throw new ClientForbiddenException('User does not have explicit permission to make this API call.');
 		}
+
 		if ($toCountryID < 1 || $toCountryID > count($game->Members->ByID) || $toCountryID == $countryID) {
 			throw new RequestException('Invalid toCountryID');
 		}
