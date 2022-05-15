@@ -1006,11 +1006,11 @@ class SendMessage extends ApiEntry {
 
 		$toUser = new User($game->Members->ByCountryID[$toCountryID]->userID);
 		if(!$toUser->isCountryMuted($game->id, $countryID)) {
-			$timeSent = libGameMessage::send($toCountryID, $countryID, $message, $gameID);
+			list($escapedMessage, $timeSent) = libGameMessage::send($toCountryID, $countryID, $message, $gameID);
 			$ret = [
 				"fromCountryID" => intval($args['countryID']),
 				"toCountryID" => intval($args["toCountryID"]),
-				"message" => $args["message"],
+				"message" => $escapedMessage,
 				"timeSent" => $timeSent,
 			];
 			return json_encode($ret);
