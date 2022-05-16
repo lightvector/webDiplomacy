@@ -11,6 +11,7 @@ import GameOverviewResponse from "../interfaces/GameOverviewResponse";
 import { ApiStatus, GameState } from "../interfaces/GameState";
 import GameStatusResponse from "../interfaces/GameStatusResponse";
 import GameMessages from "../interfaces/GameMessages";
+import ViewedPhaseState from "../interfaces/ViewedPhaseState";
 import { RootState } from "../store";
 import initialState from "./initial-state";
 import OrdersMeta from "../interfaces/SavedOrders";
@@ -202,6 +203,12 @@ const gameApiSlice = createSlice({
     updateOutstandingMessageRequests(state, action) {
       state.messages.outstandingRequests += action.payload;
     },
+    changeViewedPhaseIdxBy(state, action) {
+      let newIdx = state.viewedPhaseState.viewedPhaseIdx + action.payload;
+      newIdx = Math.min(newIdx, state.status.phases.length - 1);
+      newIdx = Math.max(newIdx, 0);
+      state.viewedPhaseState.viewedPhaseIdx = newIdx;
+    },
   },
   extraReducers(builder) {
     builder
@@ -233,6 +240,15 @@ const gameApiSlice = createSlice({
       })
       .addCase(fetchGameStatus.fulfilled, (state, action) => {
         state.apiStatus = "succeeded";
+        // If the user is scrolled to the current phase, make the viewed
+        // phase track the current phase
+        if (
+          state.viewedPhaseState.viewedPhaseIdx >=
+          state.status.phases.length - 1
+        ) {
+          state.viewedPhaseState.viewedPhaseIdx =
+            action.payload.phases.length - 1;
+        }
         state.status = action.payload;
       })
       .addCase(fetchGameStatus.rejected, (state, action) => {
@@ -325,5 +341,9 @@ export const gameTerritoriesMeta = ({
 }: RootState): TerritoriesMeta => territoriesMeta;
 export const gameUnits = ({ game: { units } }: RootState): Unit[] => units;
 export const gameUnitState = ({ game: { unitState } }: RootState) => unitState;
+
+export const gameViewedPhase = ({
+  game: { viewedPhaseState },
+}: RootState): ViewedPhaseState => viewedPhaseState;
 
 export default gameApiSlice.reducer;

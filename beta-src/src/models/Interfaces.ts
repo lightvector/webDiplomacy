@@ -32,11 +32,23 @@ export interface ICoastalBorder {
   f: boolean;
 }
 
+export interface ICenter {
+  countryID: string;
+  terrID: string;
+}
+
 export interface IUnit {
   id: string;
   countryID: string;
   type: string;
   terrID: string;
+}
+
+export interface IUnitHistorical {
+  unitType: string;
+  retreating: string;
+  terrID: number;
+  countryID: number;
 }
 
 export interface ITerrStatus {
@@ -84,4 +96,26 @@ export interface IOrderData {
   type: string;
   unitID: string;
   viaConvoy: string | null;
+}
+
+export interface IOrderDataHistorical {
+  countryID: string;
+  dislodged: string;
+  fromTerrID: number;
+  phase: string;
+  success: string;
+  terrID: number;
+  toTerrID: number;
+  turn: number;
+  type: string;
+  unitType: string;
+  viaConvoy: string;
+}
+
+export interface IPhaseDataHistorical {
+  centers: ICenter[];
+  orders: IOrderDataHistorical[];
+  phase: string;
+  turn: number;
+  units: IUnitHistorical[];
 }
