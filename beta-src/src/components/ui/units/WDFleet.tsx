@@ -16,6 +16,7 @@ const WDFleet: React.FC<GameIconProps> = function ({
 }): React.ReactElement {
   const theme = useTheme();
   const [fluidIconState, setFluidIconState] = React.useState(iconState);
+  console.log("Made a WDFleet");
 
   return (
     <svg
