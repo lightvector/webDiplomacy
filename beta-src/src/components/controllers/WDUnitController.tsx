@@ -4,7 +4,6 @@ import UIState from "../../enums/UIState";
 import debounce from "../../utils/debounce";
 import { useAppDispatch, useAppSelector } from "../../state/hooks";
 import { gameApiSliceActions } from "../../state/game/game-api-slice";
-import processNextCommand from "../../utils/processNextCommand";
 
 interface UnitControllerProps {
   meta: GameIconProps["meta"];

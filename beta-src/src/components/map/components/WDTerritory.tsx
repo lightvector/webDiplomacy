@@ -13,7 +13,6 @@ import {
 import { useAppDispatch, useAppSelector } from "../../../state/hooks";
 import { TerritoryMeta } from "../../../state/interfaces/TerritoriesState";
 import ClickObjectType from "../../../types/state/ClickObjectType";
-import processNextCommand from "../../../utils/processNextCommand";
 import WDArmy from "../../ui/units/WDArmy";
 import WDArmyIcon from "../../ui/units/WDArmyIcon";
 import WDFleet from "../../ui/units/WDFleet";
@@ -74,61 +73,6 @@ const WDTerritory: React.FC<WDTerritoryProps> = function ({
     setOpenBuildPopovers(false);
     dispatch(gameApiSliceActions.resetOrder());
   };
-
-  // const commandActions = {
-  //   BUILD: (command) => {
-  //     const [key, value] = command;
-  //     const builds: BuildPopovers = {};
-  //     const buildsArray = value.data.build;
-  //     if (buildsArray?.length) {
-  //       buildsArray.forEach((b) => {
-  //         builds[b.unitSlotName] = {
-  //           ...b,
-  //           ...{ clickCallback: build, country: userCountry },
-  //         };
-  //       });
-  //     }
-  //     setBuildPopovers(builds);
-  //     setMoveHighlight();
-  //     setOpenBuildPopovers(true);
-  //     deleteCommand(key);
-  //   },
-  //   CAPTURED: (command) => {
-  //     const [key, value] = command;
-  //     territoryMapData.type === "water"
-  //       ? setTerritoryFill("none")
-  //       : setCapturedHighlight(value.data?.country);
-  //     deleteCommand(key);
-  //   },
-  //   HOLD: (command) => {
-  //     const [key] = command;
-  //     setTerritoryFill(theme.palette[userCountry].main);
-  //     setTerritoryFillOpacity(0.9);
-  //     setTerritoryStrokeOpacity(2);
-  //     deleteCommand(key);
-  //   },
-  //   MOVE: (command) => {
-  //     const [key] = command;
-  //     setMoveHighlight();
-  //     deleteCommand(key);
-  //   },
-  //   REMOVE_BUILD: (command) => {
-  //     const [key] = command;
-  //     setOpenBuildPopovers(false);
-  //     setCapturedHighlight(userCountry);
-  //     deleteCommand(key);
-  //   },
-  //   SET_UNIT: (command) => {
-  //     const [key, value] = command;
-  //     const {
-  //       componentType,
-  //       country,
-  //       iconState,
-  //       mappedTerritory,
-  //       unit,
-  //       unitType,
-  //       unitSlotName,
-  //     } = value.data.setUnit;
 
   const territoryName = territoryMapData.name;
   const territoryNameToMeta: { [key: string]: TerritoryMeta } = {};
