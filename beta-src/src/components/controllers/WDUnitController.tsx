@@ -8,48 +8,13 @@ import processNextCommand from "../../utils/processNextCommand";
 
 interface UnitControllerProps {
   meta: GameIconProps["meta"];
-  setIconState: React.Dispatch<UIState>;
 }
 
 const WDUnitController: React.FC<UnitControllerProps> = function ({
   children,
-  setIconState,
   meta,
 }): React.ReactElement {
   const dispatch = useAppDispatch();
-
-  const commands = useAppSelector(
-    (state) => state.game.commands.unitCommands[meta.unit.id],
-  );
-
-  const commandActions = {
-    DISLODGED: (command) => {
-      const [key] = command;
-      setIconState(UIState.DISLODGED);
-    },
-    DESTROY: (command) => {
-      const [key] = command;
-      setIconState(UIState.DESTROY);
-    },
-    HOLD: (command) => {
-      const [key] = command;
-      setIconState(UIState.HOLD);
-    },
-    NONE: (command) => {
-      const [key] = command;
-      setIconState(UIState.NONE);
-    },
-    SELECTED: (command) => {
-      const [key] = command;
-      setIconState(UIState.SELECTED);
-    },
-    DISBAND: (command) => {
-      const [key] = command;
-      setIconState(UIState.DISBANDED);
-    },
-  };
-
-  processNextCommand(commands, commandActions);
 
   const clickAction = (e, method) => {
     dispatch(

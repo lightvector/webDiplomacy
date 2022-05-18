@@ -4,6 +4,8 @@ import { GameIconProps } from "../../../interfaces/Icons";
 import WDFleetIcon from "./WDFleetIcon";
 import WDUnitController from "../../controllers/WDUnitController";
 import UIState from "../../../enums/UIState";
+import { useAppSelector } from "../../../state/hooks";
+import { gameUnitState } from "../../../state/game/game-api-slice";
 
 const WDFleet: React.FC<GameIconProps> = function ({
   country,
@@ -15,8 +17,10 @@ const WDFleet: React.FC<GameIconProps> = function ({
   width = 50,
 }): React.ReactElement {
   const theme = useTheme();
-  const [fluidIconState, setFluidIconState] = React.useState(iconState);
-  console.log("Made a WDFleet");
+
+  // FIXME: dedup with WDArmy
+  const unitState = useAppSelector(gameUnitState);
+  const thisUnitState = unitState[meta.unit.id];
 
   return (
     <svg
@@ -26,8 +30,8 @@ const WDFleet: React.FC<GameIconProps> = function ({
       viewBox={viewBox}
       width={width}
     >
-      <WDUnitController meta={meta} setIconState={setFluidIconState}>
-        <WDFleetIcon country={country} iconState={fluidIconState} />
+      <WDUnitController meta={meta}>
+        <WDFleetIcon country={country} iconState={thisUnitState} />
       </WDUnitController>
     </svg>
   );
