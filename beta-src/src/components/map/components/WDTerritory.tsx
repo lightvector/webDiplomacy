@@ -227,7 +227,7 @@ const WDTerritory: React.FC<WDTerritoryProps> = function ({
       const WDUnitComponent = unitType === "Fleet" ? WDFleet : WDArmy;
       unitFCs[unit.mappedTerritory.unitSlotName] = (
         <WDUnitComponent
-          id={`${territoryName}-${unitType}`}
+          id={`${territoryName}-unit`} // n.b. the id here is used by drawOrders, do not change!
           country={unit.country}
           meta={unit}
         />
